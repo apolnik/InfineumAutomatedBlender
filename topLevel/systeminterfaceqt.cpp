@@ -7,6 +7,7 @@
 #include "TimerAPI.h"
 #include "gpioTool.h"
 #include "tempMeasurement.h"
+#include "unistd.h"
 Stepper* s;
 RTOS_TMR *timer_obj1;//updates displays text
 typedef struct{
@@ -68,10 +69,15 @@ MainWindow::MainWindow(QWidget *parent) :
         int direction = FORWARD;
         s->setMode(FULLSTEP);
         s->step(&direction);
+	usleep(60000);
         s->step(&direction);
+	usleep(60000);
         s->step(&direction);
+	usleep(60000);
         s->step(&direction);
-        s->step(&direction);
+	usleep(60000);
+	s->step(&direction);
+	usleep(60000);
 
 }
 
@@ -87,10 +93,36 @@ void MainWindow::on_pump1Btn_clicked()
 	int direction = FORWARD;
 	s->setMode(FULLSTEP);
 	s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+
 	s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+
 	s->step(&direction);
-	s->step(&direction);
-	s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+        usleep(60000);
+        s->step(&direction);
+
+
 }
 
 void MainWindow::on_pump2Btn_clicked()

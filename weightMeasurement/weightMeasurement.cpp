@@ -1,5 +1,10 @@
 #include "weightMeasurement.h"
-
+#include "gpioTool.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "fcntl.h"
+#include "unistd.h"
+#include "SysParam.h"
 weightMeasurement::weightMeasurement(int id){
 	scaleID=id;
 	if(scaleID == LOAD_CELL1_PIN){
@@ -17,8 +22,9 @@ weightMeasurement::weightMeasurement(int id){
 		clkID = LOAD_CELL1_CLK;
 		
 	}
-	exportPin(clkID)
+	exportPin(clkID);
 	exportPin(id);
+	
 
 }
 weightMeasurement::~weightMeasurement(){
@@ -48,9 +54,9 @@ double weightMeasurement::measureWeight(){
 	int valfd = open(buf,O_RDWR);
 	
 	int clkvalfd = open(valclk,O_WRONLY);
-	int dirclk = open(dirclk,O_WRONLY);
+	int dirclkfd = open(dirclk,O_WRONLY);
 
-	write(dirclk,"1",2);
+	write(dirclkfd,"1",2);
 	write(clkvalfd,"0",2);
 	
 	write(dirfd,"1",2);
@@ -59,7 +65,7 @@ double weightMeasurement::measureWeight(){
 	close(dirfd);
 	while(DOUT[0]=='1'){
 		read(valfd,&DOUT,2);
-		seek(valfd,0,0);
+		lseek(valfd,0,0);
 	}
 	int count=0;
 	for(int i=0; i<24;i++){
@@ -73,10 +79,10 @@ double weightMeasurement::measureWeight(){
 	}
 	write(clkvalfd,"1",2);
 	count = count ^ 0x800000;
-	write(clkvalfd,"0"2);
+	write(clkvalfd,"0",2);
 	close(valfd);
 	close(dirfd);
-	close(dirclk);
+	close(dirclkfd);
 	close(clkvalfd);
 	return count;
 }

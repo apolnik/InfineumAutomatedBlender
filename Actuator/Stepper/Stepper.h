@@ -14,7 +14,7 @@ class Stepper: public Actuator{
 public:
 	double position;
 	int useType;
-	int factor=1;
+	int factor;
 	Proximity disSensor;
 	int inUse;
 	static Stepper* stepper_motor;

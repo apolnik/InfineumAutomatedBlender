@@ -38,7 +38,7 @@ double tempMeasurement::measureHeat(){
 	
 	double tempk;
 	if(regAddr == MCP9808_REG_AMBIENT_TEMP){
-		Sensor.readBytes(C_TEMP_DEV_ADDR,MCP9808_REG_AMBIENT_TEMP,3,&buf);
+		Sensor.readBytes(C_TEMP_DEV_ADDR,MCP9808_REG_AMBIENT_TEMP,3,buf);
 		tempk = double((buf[0] & 0x1F)*16 + buf[1]/16)+273.15;
 	}
 	else
