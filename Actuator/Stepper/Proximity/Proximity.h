@@ -4,8 +4,14 @@
 
 class Proximity{
 	public:
-	Proximity();
+	double distance;
+	double length;
+	double* data;
 
+	Proximity();
+	
+	double measureDistance();
+	double avgData();
 
 }; 
 #endif /* Proximity_H */

@@ -4,8 +4,13 @@
 
 class RotEncoder{
 	public:
-	RotEncoder();
+	double speed;
+	double* data;
 
+	RotEncoder();
+	
+	double measureSpeed();
+	double avgData();
 
 }; 
 #endif /* RotEncoder_H */

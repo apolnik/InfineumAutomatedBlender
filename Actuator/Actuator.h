@@ -4,8 +4,14 @@
 
 class Actuator{
 	public:
-	Actuator();
 
+	int id;
+	
+	Actuator();
+	
+	int setMotorType();
+	int setSpeed();
+	int controlPosition();
 
 };
 #endif /* Actuator_H */

@@ -4,8 +4,15 @@
 
 class weightMeasurement{
 	public:
-	weightMeasurement();
+	
+	int scaleID;
+	double* data;
+	double weight;
 
+	weightMeasurement();
+	
+	double measureWeight();
+	double avgData();
 
 };
  

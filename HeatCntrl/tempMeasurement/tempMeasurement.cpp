@@ -6,3 +6,14 @@ tempMeasurement::tempMeasurement(){
 
 
 }
+
+
+double tempMeasurement::measureHeat(){
+
+
+}
+double tempMeasurement::avgData(){
+
+
+
+}

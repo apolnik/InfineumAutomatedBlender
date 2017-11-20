@@ -4,8 +4,14 @@
 
 class Stepper: public Actuator{
 	public:
-	Stepper();
+	int position;
+	int useType;
 
+	Stepper();
+	
+	int getPosition();
+	int controlPosition();
+	int returnToStartPos();
 
 }; 
 #endif /* Stepper_H */

@@ -6,3 +6,12 @@ Logger::Logger(){
 
 
 }
+
+int Logger::displayLogs(){
+
+
+}
+int Logger::saveLogs(){
+
+
+}

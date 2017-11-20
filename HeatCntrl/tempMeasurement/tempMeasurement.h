@@ -4,8 +4,14 @@
 
 class tempMeasurement{
 	public:
-	tempMeasurement();
+	int tempsensorID;
+	double* data;
+	double temp;
 
+	tempMeasurement();
+	
+	double measureHeat();
+	double avgData();
 
 }; 
 #endif /* tempMeasurement_H */
