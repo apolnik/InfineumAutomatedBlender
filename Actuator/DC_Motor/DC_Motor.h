@@ -1,6 +1,7 @@
 #ifndef DC_Motor_H
 #define DC_Motor_H
- 
+
+#include "Actuator.h"
 
 class DC_Motor : public Actuator{
 	public:

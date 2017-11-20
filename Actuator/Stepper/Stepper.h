@@ -1,6 +1,6 @@
 #ifndef Stepper_H
 #define Stepper_H
- 
+#include "Actuator.h" 
 
 class Stepper: public Actuator{
 	public:
