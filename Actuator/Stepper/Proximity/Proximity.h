@@ -1,6 +1,6 @@
 #ifndef Proximity_H
 #define Proximity_H
- 
+#define SAMPLE_SIZE 5
 
 class Proximity{
 	public:
@@ -10,7 +10,7 @@ class Proximity{
 
 	Proximity();
 	
-	double measureDistance();
+	int measureDistance(double* ret_val);
 	double avgData();
 
 }; 

@@ -1,6 +1,8 @@
 #ifndef tempMeasurement_H
 #define tempMeasurement_H
  
+#include "i2cTool.h"
+
 
 class tempMeasurement{
 	public:
