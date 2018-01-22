@@ -25,14 +25,23 @@
 #define BASE_SPEED 60//rpm
 #define START_POS 30//inches
 #define BAR_LENGTH 32//inches
-
-//IR Temp Sensor I2C Addresses
+//IR Temp Sensor I2C Addresses Read
+#define IR_TEMP_OBJ_1		0x07
+//IR Temp Sensor I2C Addresses Write
+#define IR_TEMP_DEV_ADDR	0x5A
 #define IR_TEMP_TO_MAX 		0x000
 #define IR_TEMP_TO_MIN 		0x001
 #define IR_TEMP_TA_RANGE 	0x003
 #define IR_TEMP_PWM_CNTRL	0x002
 #define IR_TEMP_EM_COEF		0x004 	//Emissivity = dec2hex[ round( 65535 x ε) ] 
 #define IR_TEMP_SMBUS_ADDR	0x00D
-
-
+//Contact Temp Sensor I2c Addresses
+//https://cdn-shop.adafruit.com/datasheets/MCP9808.pdf
+#define C_TEMP_DEV_ADDR				   0x18
+#define MCP9808_REG_UPPER_TEMP         0x02
+#define MCP9808_REG_LOWER_TEMP         0x03
+#define MCP9808_REG_CRIT_TEMP          0x04
+#define MCP9808_REG_AMBIENT_TEMP       0x05
+#define MCP9808_REG_MANUF_ID           0x06
+#define MCP9808_REG_DEVICE_ID          0x07
 

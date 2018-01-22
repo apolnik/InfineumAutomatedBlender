@@ -2,8 +2,39 @@ CC = gcc
 CFLAGS = -Wall
 PRU_ASM = pasm
 DTC = dtc
+TARGET_EXEC ?= a.out
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./src
+SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
+INC_DIRS := $(shell find $(SRC_DIRS) -type d)
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 
-all: hcsr04-00A0.dtbo hcsr04.bin hcsr04
+
+
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	@echo "\n>> Compiling Code"
+	@echo "\n>>"
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+# c source
+$(BUILD_DIR)/%.c.o: %.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+# c++ source
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -rf hcsr04 hcsr04.o hcsr04.bin hcsr04-00A0.dtbo 
+
+install: hcsr04-00A0.dtbo hcsr04.bin hcsr04
+	cp hcsr04-00A0.dtbo /lib/firmware
+	echo hcsr04 > /sys/devices/bone_capemgr.9/slots
+	cat /sys/devices/bone_capemgr.9/slots
+pruall: hcsr04-00A0.dtbo hcsr04.bin hcsr04
 
 hcsr04-00A0.dtbo: hcsr04.dts
 	@echo "\n>> Compiling Driver"
@@ -18,10 +49,3 @@ hcsr04: hcsr04.c
 	$(CC) $(CFLAGS) -c -o hcsr04.o hcsr04.c
 	$(CC) -lpthread -lprussdrv -o hcsr04 hcsr04.o
 
-clean:
-	rm -rf hcsr04 hcsr04.o hcsr04.bin hcsr04-00A0.dtbo 
-
-install: hcsr04-00A0.dtbo hcsr04.bin hcsr04
-	cp hcsr04-00A0.dtbo /lib/firmware
-	echo hcsr04 > /sys/devices/bone_capemgr.9/slots
-	cat /sys/devices/bone_capemgr.9/slots

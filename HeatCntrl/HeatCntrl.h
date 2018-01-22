@@ -1,12 +1,12 @@
 #ifndef HeatCntrl_H
 #define HeatCntrl_H
  
-
+#include "tempMeasurement.h"
 class HeatCntrl{
 	public:
 	int heatID;
 	int heaterType;
-	double templ
+	double temp;
 	tempMeasurement* tempSensor;
 
 

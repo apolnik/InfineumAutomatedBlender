@@ -35,14 +35,14 @@ pthread_mutex_t hash_table_mutex;
 // Mutex for Protecting Timer Pool
 pthread_mutex_t timer_pool_mutex;
 
-void RTOSSemPost(RTOS_SEM *timerSemPtr){
+void RTOSSemPost(RTOS_SEM timerSemPtr){
 	sem_post(&timerSemPtr);
 
 }
-void RTOSSemPend(RTOS_SEM *timerSemPtr){
+void RTOSSemPend(RTOS_SEM timerSemPtr){
 	sem_wait(&time_task_sem);
 }
-void RTOSSemCreate(RTOS_SEM *timerSemPtr){
+void RTOSSemCreate(RTOS_SEM timerSemPtr){
 	sem_init(&timerSemPtr,0,1);
 
 }
@@ -531,12 +531,12 @@ void *RTOSTmrTask(void *temp2)
 // Timer Initialization Function
 void RTOSTmrInit(void)
 {
-	INT32U timer_count = 0;
+	INT32U timer_count = 10;
 	INT8U	retVal;
 	pthread_attr_t attr;
 
-	fprintf(stdout,"\n\nPlease Enter the number of Timers required in the Pool for the OS ");
-	scanf("%d", &timer_count);
+	//fprintf(stdout,"\n\nPlease Enter the number of Timers required in the Pool for the OS ");
+	//scanf("%d", &timer_count);
 
 	// Create Timer Pool
 	retVal = Create_Timer_Pool(timer_count);

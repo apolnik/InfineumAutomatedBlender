@@ -8,7 +8,7 @@
 // TIMER MANAGER APIs
 
 extern void RTOSTmrInit(void);
-
+extern void OSTickInitialize();
 extern RTOS_TMR* RTOSTmrCreate(INT32U delay, INT32U period, INT8U option, RTOS_TMR_CALLBACK callback, void *callback_arg, INT8	*name, INT8U *err);
 
 extern INT8U RTOSTmrDel(RTOS_TMR *ptmr, INT8U *perr);

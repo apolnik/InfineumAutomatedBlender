@@ -20,9 +20,9 @@ int setPin(int pinNum, char val){
 
 	}
 	else{
-		write(fd,val,2);
-		
-
+		char v[2];
+		v[0]=val;v[1]=0;
+		write(fd,v,2);
 
 	}
 	close(fd);
@@ -82,7 +82,7 @@ int exportPin(int pinNum){
 	int fd;
 	char buf[MAX_BUF];
 	char ch;
-	len = snprintf(buf, sizeof(buf), "%d", pinNum);
+	int len = snprintf(buf, sizeof(buf), "%d", pinNum);
 	write(fd, buf, len);
 	close(fd);
 
@@ -105,7 +105,7 @@ int unexportPin(int pinNum){
 	int fd;
 	char buf[MAX_BUF];
 	char ch;
-	len = snprintf(buf, sizeof(buf), "%d", pinNum);
+	int len = snprintf(buf, sizeof(buf), "%d", pinNum);
 	write(fd, buf, len);
 	close(fd);
 

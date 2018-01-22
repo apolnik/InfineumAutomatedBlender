@@ -9,8 +9,10 @@
 class i2cTool{
 
 public:
-	int i2cFile
+	int i2cFile;
+	char dev_ADDR;
 	i2cTool();
+	~i2cTool();
 	int open_i2c();
 	int close_i2c();
 	int sendByte(char data, char dev_addr, char reg_addr);

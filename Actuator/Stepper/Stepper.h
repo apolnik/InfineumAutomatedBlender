@@ -2,6 +2,7 @@
 #define Stepper_H
 #include "Actuator.h" 
 #include "Proximity.h"
+#include "SysParam.h"
 #define FULLSTEP 0
 #define HALFSTEP 1
 #define QUARTERSTEP 2
@@ -18,10 +19,10 @@ public:
 	Stepper();
 	~Stepper();
 	int getPosition(double* ret_val);
-	int controlPosition(double distance);
+	int controlPosition(double distance, double rpm);
 	int returnToStartPos();
-private:
-	int step(int stepNum, int direction);
+
+	static void step(void *direction);
 	int setMode(int mode);
 }; 
 #endif /* Stepper_H */

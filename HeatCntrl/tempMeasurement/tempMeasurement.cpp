@@ -2,22 +2,31 @@
 
 tempMeasurement::tempMeasurement(){
 
-
-
-
+	data = new double[5];
+	for(int i =0; i < 5; i++)
+		data[i] = 0;
+	
 }
 
 
 double tempMeasurement::measureHeat(){
-	unsigned char buf[3];
-	i2cTool irSensor= new i2cTool();
-	if(irSensor.readBytes(IR_TEMP_DEV_ADDR,IR_TEMP_OBJ_1,3, &buf)!=3)
+
+	char buf[3];
+	char sensorAddr;
+	if(tempsensorID == IRTEMP1_PIN || tempsensorID == IRTEMP1_PIN || 
+		tempsensorID == IRTEMP1_PIN ||tempsensorID == IRTEMP1_PIN)
+		sensorAddr = IR_TEMP_DEV_ADDR;
+	else
+		sensorAddr = C_TEMP_DEV_ADDR;
+	i2cTool irSensor;
+	char regAddr = IR_TEMP_OBJ_1;
+	if(irSensor.readBytes(sensorAddr,regAddr,3, buf)!=3)
 		return -1;
-	double tempk = double((int(buf[1])<<8)|buf[0]) * .02
+	double tempk = double((int(buf[1])<<8)|buf[0]) * .02;
 	return tempk;
 }
 double tempMeasurement::avgData(){
-	
+
 
 
 }

@@ -2,7 +2,7 @@
 #define tempMeasurement_H
  
 #include "i2cTool.h"
-
+#include "SysParam.h"
 
 class tempMeasurement{
 	public:

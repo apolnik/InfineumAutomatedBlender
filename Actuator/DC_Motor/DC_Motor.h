@@ -12,7 +12,7 @@ class DC_Motor : public Actuator{
 	double torque;
 	double power;
 
-	weightMeasurement();
+	DC_Motor();
 
 	double getSpeed();
 	int setSpeed();

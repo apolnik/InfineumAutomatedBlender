@@ -8,5 +8,12 @@ RotEncoder::RotEncoder(){
 }
 
 
-double RotEncoder::measureSpeed();
-double RotEncoder::avgData();
+double RotEncoder::measureSpeed(){
+
+
+}
+double RotEncoder::avgData(){
+
+
+	
+}

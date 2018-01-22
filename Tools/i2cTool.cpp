@@ -5,7 +5,7 @@ i2cTool::i2cTool(){
 
 
 }
-~i2cTool::i2cTool(){
+i2cTool::~i2cTool(){
 	close_i2c();
 
 
@@ -42,13 +42,13 @@ int i2cTool::readBytes(char dev_addr, char reg_addr, int size, char* output){
 	if(write(i2cFile,buf,1)!=1)
 		return -1;
 	setAddress(dev_addr);
-	if(int i=read(i2cFile,output,size)!=n)
+	if(int i=read(i2cFile,output,size)!=size)
 		return i;
-	else return n;
+	else return size;
 }
 int i2cTool::setAddress(char addr){
 	dev_ADDR = addr;
-	if(ioctl(i2cFile,I2C_SLAVE, reg_addr)<0)
+	if(ioctl(i2cFile,I2C_SLAVE, dev_ADDR)<0)
 		return -1;
 	return 0;
 

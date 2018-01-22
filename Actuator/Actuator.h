@@ -1,7 +1,7 @@
 #ifndef Actuator_H
 #define Actuator_H
  
-#include "../Tools/gpioTool.h"
+#include "gpioTool.h"
 class Actuator{
 	public:
 

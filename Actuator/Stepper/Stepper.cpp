@@ -1,3 +1,4 @@
+#include <stdlib.h>     /* abs */
 #include "Stepper.h"
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
@@ -14,7 +15,8 @@ Stepper::Stepper(){
 	setPinDir(STEPPER_SLP_PIN,OUT);
 	setPinDir(STEPPER_DIR_PIN,OUT);
 
-	disSensor = new Proximity();
+	Proximity temp;
+	disSensor=temp;
 }
 Stepper::~Stepper(){
 	unexportPin(STEPPER_MS1_PIN);
@@ -26,6 +28,23 @@ Stepper::~Stepper(){
 
 
 }
+void Stepper::step(void* direction){
+	int* dir = (int*)direction;
+	if(&dir == FORWARD){
+		setPin(STEPPER_DIR_PIN,1);
+		setPin(STEPPER_STEP_PIN,0);
+		setPin(STEPPER_STEP_PIN,1);
+	}	
+	else{
+
+		setPin(STEPPER_DIR_PIN,0);
+		setPin(STEPPER_STEP_PIN,0);
+		setPin(STEPPER_STEP_PIN,1);
+
+
+	}
+
+}
 int Stepper::getPosition(double* ret_val){
 	int err_code = disSensor.measureDistance(ret_val);
 	return err_code;
@@ -33,13 +52,13 @@ int Stepper::getPosition(double* ret_val){
 int Stepper::controlPosition(double distance, double rpm){
 	int waitdelay = (int)((60/rpm)/STEPSPERREV)*1000*1000;
 	INT8U err_val;
-	INT8 *timer_name[1] = {"Timer1"}
+	INT8 *timer_name[1] = {"Timer1"};
 	int direction = FORWARD;
 	RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
 										step,&direction,timer_name[0],&err_val);
-	eps = MIN_STEP_DIS;
+	double eps = MIN_STEP_DIS;
 	double measDis;
-	if(getPosition(measDis)==-1)
+	if(getPosition(&measDis)==-1)
 		return -1;
 	if(setMode(FULLSTEP)==-1)
 		return -1;
@@ -56,7 +75,7 @@ int Stepper::controlPosition(double distance, double rpm){
 			direction=BACKWARD;
 		}
 
-		if(getPosition(measDis)==-1)
+		if(getPosition(&measDis)==-1)
 			return -1;
 
 	}
@@ -104,21 +123,5 @@ int Stepper::setMode(int mode){
 
 	}
 	return 0;
-
-}
-int Stepper::step(int direction){
-	if(direction == FORWARD){
-		setPin(STEPPER_DIR_PIN,1);
-		setPin(STEPPER_STEP_PIN,0);
-		setPin(STEPPER_STEP_PIN,1);
-	}	
-	else{
-
-		setPin(STEPPER_DIR_PIN,0);
-		setPin(STEPPER_STEP_PIN,0);
-		setPin(STEPPER_STEP_PIN,1);
-
-
-	}
 
 }
