@@ -1,0 +1,4 @@
+/home/andrew/Desktop/InfineumAutomatedBlender/CMakeFiles/rebuild_cache.dir
+/home/andrew/Desktop/InfineumAutomatedBlender/CMakeFiles/edit_cache.dir
+/home/andrew/Desktop/InfineumAutomatedBlender/CMakeFiles/testStudent.dir
+/home/andrew/Desktop/InfineumAutomatedBlender/CMakeFiles/testStudent_automoc.dir
