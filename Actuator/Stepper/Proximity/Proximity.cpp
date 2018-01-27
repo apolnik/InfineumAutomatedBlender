@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "SysParam.h"
-//#include <prussdrv.h>
-//#include <pruss_intc_mapping.h>
+#include <prussdrv.h>
+#include <pruss_intc_mapping.h>
 //https://github.com/luigif/hcsr04/blob/master/hcsr04.c
 
 Proximity::Proximity(){
@@ -44,7 +44,7 @@ int Proximity::measureDistance(double* ret_val){
 	*ret_val = (double) pruData[0] / 148.4376;
 	distance = *ret_val;
 	for(int i =SAMPLE_SIZE-1; i>0;i--){
-		data[i]=data[i-1]
+		data[i]=data[i-1];
 
 	}
 	data[0]=distance;
