@@ -20,9 +20,9 @@ int setPin(int pinNum, char val){
 
 	}
 	else{
-		char v[2];
-		v[0]=val;v[1]=0;
-		write(fd,v,2);
+		char v[1];
+		v[0]=val+'0';
+		write(fd,v,1);
 
 	}
 	close(fd);

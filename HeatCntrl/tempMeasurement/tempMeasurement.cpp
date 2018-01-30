@@ -1,7 +1,7 @@
 #include "tempMeasurement.h"
 
-tempMeasurement::tempMeasurement(){
-
+tempMeasurement::tempMeasurement(int sensor){
+	sensorID=sensor;
 	data = new double[5];
 	for(int i =0; i < 5; i++)
 		data[i] = 0;
@@ -13,8 +13,8 @@ double tempMeasurement::measureHeat(){
 
 	char buf[3];
 	char sensorAddr;
-	if(tempsensorID == IRTEMP1_PIN || tempsensorID == IRTEMP1_PIN || 
-		tempsensorID == IRTEMP1_PIN ||tempsensorID == IRTEMP1_PIN)
+	if(tempsensorID == IRTEMP1_PIN || tempsensorID == IRTEMP2_PIN || 
+		tempsensorID == IRTEMP3_PIN ||tempsensorID == IRTEMP4_PIN)
 		sensorAddr = IR_TEMP_DEV_ADDR;
 	else
 		sensorAddr = C_TEMP_DEV_ADDR;

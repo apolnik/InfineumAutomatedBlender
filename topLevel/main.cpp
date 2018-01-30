@@ -7,6 +7,7 @@
 #include "TimerAPI.h"
 #include <QApplication>
 #include "systeminterfaceqt.h"
+#include "Stepper.h"
 
 using namespace std;
 
@@ -19,9 +20,9 @@ int main(int argc, char *argv[]){
     w.show();
     	OSTickInitialize();
     		RTOSTmrInit();
-
     return a.exec();
 
 
 
 }
+

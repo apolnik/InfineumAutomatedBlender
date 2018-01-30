@@ -6,11 +6,11 @@
 
 class ValveCntrl{
 	public:
-	Actuator* valve;
+	Stepper* carriage;
 	int valveID;
 	
-	ValveCntrl();
-	
+	ValveCntrl(int vavleid);
+	~ValveCntrl();
 	int openValve();
 	int moveValve();
 	int closeValve();

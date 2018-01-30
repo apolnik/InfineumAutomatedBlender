@@ -18,13 +18,22 @@
 #define CTEMP2_PIN 15
 #define CTEMP3_PIN 16
 #define CTEMP4_PIN 17
+#define HEATPAD1_PIN	18
+#define HEATPAD2_PIN	19
+#define HEATPAD3_PIN	20
+#define HEATPAD4_PIN	21
 
 
 //Stepper Motor Parameters
+void* stepper_motor;
 #define MIN_STEP_DIS 0.25f
 #define BASE_SPEED 60//rpm
 #define START_POS 30//inches
 #define BAR_LENGTH 32//inches
+#define BEAKER1_POS	6
+#define BEAKER2_POS	12
+#define	BEAKER3_POS	18
+#define GARBAGE		24
 //IR Temp Sensor I2C Addresses Read
 #define IR_TEMP_OBJ_1		0x07
 //IR Temp Sensor I2C Addresses Write
@@ -45,3 +54,16 @@
 #define MCP9808_REG_MANUF_ID           0x06
 #define MCP9808_REG_DEVICE_ID          0x07
 
+#define HEAT_FREQ	60
+#define DEFAULT_DUTY_CYC	.5
+
+#define VALVE_1		1
+#define VALVE_2		2
+#define VALVE_3		3
+#define VALVE_4		4
+#define VALVE_5		5
+#define VALVE_6		6
+#define VALVE_7		7
+#define VALVE_8		8
+#define VALVE_9		9
+#define VALVE_10	10

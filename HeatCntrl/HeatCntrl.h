@@ -3,17 +3,23 @@
  
 #include "tempMeasurement.h"
 class HeatCntrl{
-	public:
+private:
+	int setPWM(double dutycyc, void* rise, void* fall);
+	void measureStats();
+public:
 	int heatID;
 	int heaterType;
 	double temp;
-	tempMeasurement* tempSensor;
+	double duty;
+	tempMeasurement* IRtempSensor;
+	tempMeasurement* CtempSensor;
 
 
-	HeatCntrl();
+	HeatCntrl(int heat);
 
-	int activateHeater();
+	int activateHeater(int mode);
+	int setDesiredTemp(double temp, double hold_time);
 	double getTemp();
-
+	int testHeatCntrl(int iterations, int fd);
 }; 
 #endif /* HeatCntrl_H */

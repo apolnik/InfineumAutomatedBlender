@@ -3,6 +3,7 @@
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
+#include "globVar.h"
 Stepper::Stepper(){
 	exportPin(STEPPER_MS1_PIN);
 	exportPin(STEPPER_MS2_PIN);
@@ -17,6 +18,7 @@ Stepper::Stepper(){
 
 	Proximity temp;
 	disSensor=temp;
+	stepper_motor = this;
 }
 Stepper::~Stepper(){
 	unexportPin(STEPPER_MS1_PIN);
@@ -25,7 +27,7 @@ Stepper::~Stepper(){
 	unexportPin(STEPPER_SLP_PIN);
 	unexportPin(STEPPER_DIR_PIN);
 
-
+	stepper_motor = NULL;
 
 }
 void Stepper::step(void* direction){

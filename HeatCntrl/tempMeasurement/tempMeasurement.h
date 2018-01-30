@@ -10,7 +10,7 @@ class tempMeasurement{
 	double* data;
 	double temp;
 
-	tempMeasurement();
+	tempMeasurement(int sensor);
 	
 	double measureHeat();
 	double avgData();

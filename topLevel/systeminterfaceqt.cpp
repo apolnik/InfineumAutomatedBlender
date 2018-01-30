@@ -2,7 +2,7 @@
 #include "ui_systeminterfaceqt.h"
 #include "Stepper.h"
 #include "SysParam.h"
-
+Stepper s;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -18,7 +18,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pump1Btn_clicked()
 {
-	Stepper s;
 	int direction = FORWARD;
 	s.step(&direction);
 	s.step(&direction);
