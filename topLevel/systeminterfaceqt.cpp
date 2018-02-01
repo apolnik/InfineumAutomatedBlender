@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	if(err_val==0)
 		RTOSTmrStart(timer_obj1, &err_val);
 	else
-		ui->tempReadOut->setText(errmsg);
+		ui->tempReadOut->setText(QString::number(err_val));
 }
 
 MainWindow::~MainWindow()
