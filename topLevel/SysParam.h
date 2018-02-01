@@ -25,7 +25,6 @@
 
 
 //Stepper Motor Parameters
-void* stepper_motor;
 #define MIN_STEP_DIS 0.25f
 #define BASE_SPEED 60//rpm
 #define START_POS 30//inches

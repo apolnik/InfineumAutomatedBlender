@@ -25,4 +25,5 @@ public:
 	static void step(void *direction);
 	int setMode(int mode);
 }; 
+Stepper stepper_motor;
 #endif /* Stepper_H */
