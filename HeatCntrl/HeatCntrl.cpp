@@ -110,11 +110,11 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	RTOS_TMR *temp_timer = RTOSTmrCreate(waitdelay+HEAT_FREQ*dutycyc,0,
 		RTOS_TMR_ONE_SHOT,setFallTimer,&new_fall,timer_name[1],&err_val);
 	int rise_mode=1;
-	struct args_timer rise_args{
-		RTOS_TMR*rise_mode_t: rise_mode;
-		int heatID_t: this->heatID
+	struct args_timer rise_args={
+		rise_mode;
+		this->heatID
 	};
-	struct args_timer args_rise = {rise_mode,heatID};
+	struct args_timer args_rise = {rise_mode,this->heatID};
 	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&args_rise,timer_name[0],&err_val);
 	RTOSTmrDel(temp_timer,&err_val);
 }
