@@ -78,13 +78,23 @@ int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 	RTOSTmrDel(stat_timer,&err_val);
 
 }
-void setFallTimer(){
+struct args_timer{
+		int rise_mode_t;
+		int heatID_t;
+	};
+struct args_setup{
+	RTOS_TMR* fall;
+	int heatID;
+
+};
+void setFallTimer(RTOS_TMR* fall,int heatID){
 	RTOS_TMR* fall = arg[0];
 	INT8U err_val;
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8* timer_name[1] = {"Fall"};
 	int rise_mode=0;
-	fall = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,{&rise_mode,&headID},timer_name[0],&err_val);
+	struct args_timer args_fall = {rise_mode,heatID};
+	fall = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&args_fall,timer_name[0],&err_val);
 
 }
 int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
@@ -96,10 +106,16 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	rise = fall = NULL;
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8 *timer_name[2] = {"Rise", "Temp"};
+	struct args_setup new_fall = {fall,this->heatID};
 	RTOS_TMR *temp_timer = RTOSTmrCreate(waitdelay+HEAT_FREQ*dutycyc,0,
-		RTOS_TMR_ONE_SHOT,setFallTimer,&fall,timer_name[1],&err_val);
+		RTOS_TMR_ONE_SHOT,setFallTimer,&new_fall,timer_name[1],&err_val);
 	int rise_mode=1;
-	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,{&rise_mode,&heatID},timer_name[0],&err_val);
+	struct args_timer rise_args{
+		RTOS_TMR*rise_mode_t: rise_mode;
+		int heatID_t: this->heatID
+	};
+	struct args_timer args_rise = {rise_mode,heatID};
+	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&args_rise,timer_name[0],&err_val);
 	RTOSTmrDel(temp_timer,&err_val);
 }
 int HeatCntrl::testHeatCntrl(int iterations, int fd){
