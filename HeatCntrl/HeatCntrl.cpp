@@ -39,9 +39,8 @@ HeatCntrl::HeatCntrl(int heat){
 	setPinDir(this->headID,OUT);
 }
 
-void HeatCntrl::activateHeater(){
-	int mode = arg[0];
-	return setPin(headID,mode);
+void activateHeater(mode,heatID){
+	setPin(headID,mode);
 }
 
 double HeatCntrl::getTemp(){
@@ -85,7 +84,7 @@ void setFallTimer(){
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8* timer_name[1] = {"Fall"};
 	int rise_mode=0;
-	fall = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&rise_mode,timer_name[0],&err_val);
+	fall = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,{&rise_mode,&headID},timer_name[0],&err_val);
 
 }
 int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
@@ -100,7 +99,7 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	RTOS_TMR *temp_timer = RTOSTmrCreate(waitdelay+HEAT_FREQ*dutycyc,0,
 		RTOS_TMR_ONE_SHOT,setFallTimer,&fall,timer_name[1],&err_val);
 	int rise_mode=1;
-	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&rise_mode,timer_name[0],&err_val);
+	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,{&rise_mode,&heatID},timer_name[0],&err_val);
 	RTOSTmrDel(temp_timer,&err_val);
 }
 int HeatCntrl::testHeatCntrl(int iterations, int fd){

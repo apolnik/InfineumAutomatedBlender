@@ -17,7 +17,7 @@ public:
 
 	HeatCntrl(int heat);
 
-	void activateHeater();
+	//void activateHeater();
 	int setDesiredTemp(double temp, double hold_time);
 	double getTemp();
 	int testHeatCntrl(int iterations, int fd);
