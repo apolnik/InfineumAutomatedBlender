@@ -2,7 +2,7 @@
 #define ValveCntrl_H
  
 #include "Actuator.h"
-
+#include "Stepper.h"
 
 class ValveCntrl{
 	public:
