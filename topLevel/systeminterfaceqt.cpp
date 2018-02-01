@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     int waitdelay = 500;
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Display"};
-	displayText* labels = {ui->disReadOut,ui->tempReadOut,ui->weightReadOut};
+	displayText labels = {ui->disReadOut,ui->tempReadOut,ui->weightReadOut};
 	RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
-										updateDisplay,labels,timer_name[0],&err_val);
+										updateDisplay,&labels,timer_name[0],&err_val);
 }
 
 MainWindow::~MainWindow()
@@ -57,7 +57,8 @@ void MainWindow::on_linearRail_rangeChanged(int min, int max)
 {
 
 }
-void updateDisplay(displayText* labels){
+void updateDisplay(void* label){
+	displayText* labels = (displayText*)label
 	QString weight;
 	QString temp;
 	QString dis;
