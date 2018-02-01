@@ -54,7 +54,7 @@
 #define MCP9808_REG_DEVICE_ID          0x07
 
 #define HEAT_FREQ	60
-#define DEFAULT_DUTY_CYC	.5
+#define DEFAULT_DUTY_CYC	0.5
 
 #define VALVE_1		1
 #define VALVE_2		2

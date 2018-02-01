@@ -12,7 +12,7 @@ class ValveCntrl{
 	ValveCntrl(int vavleid);
 	~ValveCntrl();
 	int openValve();
-	int moveValve();
+	int moveValve(int beaker);
 	int closeValve();
 	int checkGuideUse();
 

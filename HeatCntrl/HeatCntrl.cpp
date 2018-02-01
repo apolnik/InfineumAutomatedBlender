@@ -12,9 +12,9 @@ typedef struct{
 	double Kd;
 } PID;
 HeatCntrl::HeatCntrl(int heat){
-	this->headID = heat;
-	this->duty = DEFAULT_DUTY_CYC;
-	switch(this->heatID){
+	heatID = heat;
+	duty = DEFAULT_DUTY_CYC;
+	switch(heatID){
 		case HEATPAD1_PIN:
 			IRtempSensor = new tempMeasurement(IRTEMP1_PIN);
 			CtempSensor = new tempMeasurement(CTEMP1_PIN);
@@ -35,12 +35,22 @@ HeatCntrl::HeatCntrl(int heat){
 
 			break;
 	}
-	exportPin(this->headID);
-	setPinDir(this->headID,OUT);
+	exportPin(heatID);
+	setPinDir(heatID,OUT);
 }
+struct args_timer{
+		int rise_mode_t;
+		int heatID_t;
+	};
+struct args_setup{
+	RTOS_TMR* fall;
+	int heatID;
 
-void activateHeater(mode,heatID){
-	setPin(headID,mode);
+};
+void activateHeater(void* ptr){
+	int heatID = ((args_timer*)ptr)->heatID_t;
+	int mode = ((args_timer*)ptr)->rise_mode_t;
+	setPin(heatID,mode);
 }
 
 double HeatCntrl::getTemp(){
@@ -78,17 +88,10 @@ int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 	RTOSTmrDel(stat_timer,&err_val);
 
 }
-struct args_timer{
-		int rise_mode_t;
-		int heatID_t;
-	};
-struct args_setup{
-	RTOS_TMR* fall;
-	int heatID;
 
-};
-void setFallTimer(RTOS_TMR* fall,int heatID){
-	RTOS_TMR* fall = arg[0];
+void setFallTimer(void* ptr){
+	RTOS_TMR* fall = ((args_setup*)ptr)->fall;
+	int heatID = ((args_setup*)ptr)->heatID;
 	INT8U err_val;
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8* timer_name[1] = {"Fall"};
@@ -106,15 +109,15 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	rise = fall = NULL;
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8 *timer_name[2] = {"Rise", "Temp"};
-	struct args_setup new_fall = {fall,this->heatID};
+	struct args_setup new_fall = {(RTOS_TMR*)fall,heatID};
 	RTOS_TMR *temp_timer = RTOSTmrCreate(waitdelay+HEAT_FREQ*dutycyc,0,
 		RTOS_TMR_ONE_SHOT,setFallTimer,&new_fall,timer_name[1],&err_val);
 	int rise_mode=1;
 	struct args_timer rise_args={
-		rise_mode;
-		this->heatID
+		rise_mode,
+		heatID
 	};
-	struct args_timer args_rise = {rise_mode,this->heatID};
+	struct args_timer args_rise = {rise_mode,heatID};
 	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&args_rise,timer_name[0],&err_val);
 	RTOSTmrDel(temp_timer,&err_val);
 }
@@ -123,7 +126,7 @@ int HeatCntrl::testHeatCntrl(int iterations, int fd){
 
 
 }
-void HeatCntrl::measureStats(){
+void HeatCntrl::measureStats (void* arg){
 
 
 }

@@ -1,7 +1,7 @@
 #include "ValveCntrl.h"
 #include "gpioTool.h"
 ValveCntrl::ValveCntrl(int valveid){
-	carriage = stepper_motor;
+	carriage = Stepper::stepper_motor;
 	valveID = valveid;
 	exportPin(valveID);
 	setPinDir(valveID,OUT);
@@ -15,12 +15,12 @@ int ValveCntrl::openValve(){
 
 }
 int ValveCntrl::moveValve(int beaker){
-	if(checkGuideUse==-1)return -1;
-	if(beaker==1 beaker == BEAKER1_POS){
+	if(checkGuideUse()==-1)return -1;
+	if(beaker==1 || beaker == BEAKER1_POS){
 		return carriage->controlPosition(BEAKER1_POS,BASE_SPEED);
 		
 	}
-	else if(beaker==2 beaker == BEAKER2_POS){
+	else if(beaker==2 ||beaker == BEAKER2_POS){
 		return carriage->controlPosition(BEAKER2_POS,BASE_SPEED);
 
 	}

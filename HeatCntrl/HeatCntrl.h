@@ -5,7 +5,7 @@
 class HeatCntrl{
 private:
 	int setPWM(double dutycyc, void* rise, void* fall);
-	void measureStats();
+	static void measureStats(void *);
 public:
 	int heatID;
 	int heaterType;

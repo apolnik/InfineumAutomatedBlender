@@ -1,7 +1,7 @@
 #include "tempMeasurement.h"
 
 tempMeasurement::tempMeasurement(int sensor){
-	sensorID=sensor;
+	tempsensorID=sensor;
 	data = new double[5];
 	for(int i =0; i < 5; i++)
 		data[i] = 0;

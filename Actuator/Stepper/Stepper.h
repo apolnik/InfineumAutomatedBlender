@@ -16,6 +16,9 @@ public:
 	int useType;
 	int factor=1;
 	Proximity disSensor;
+	int inUse;
+	static Stepper* stepper_motor;
+
 	Stepper();
 	~Stepper();
 	int getPosition(double* ret_val);
@@ -25,5 +28,4 @@ public:
 	static void step(void *direction);
 	int setMode(int mode);
 }; 
-Stepper stepper_motor;
 #endif /* Stepper_H */

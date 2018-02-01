@@ -3,7 +3,7 @@
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
-#include "globVar.h"
+Stepper* Stepper::stepper_motor = NULL;
 Stepper::Stepper(){
 	exportPin(STEPPER_MS1_PIN);
 	exportPin(STEPPER_MS2_PIN);
@@ -15,7 +15,7 @@ Stepper::Stepper(){
 	setPinDir(STEPPER_STEP_PIN,OUT);
 	setPinDir(STEPPER_SLP_PIN,OUT);
 	setPinDir(STEPPER_DIR_PIN,OUT);
-
+	inUse=0;
 	Proximity temp;
 	disSensor=temp;
 	stepper_motor = this;
@@ -52,6 +52,7 @@ int Stepper::getPosition(double* ret_val){
 	return err_code;
 }
 int Stepper::controlPosition(double distance, double rpm){
+	inUse=1;
 	int waitdelay = (int)((60/rpm)/STEPSPERREV)*1000*1000;
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Timer1"};
@@ -84,7 +85,7 @@ int Stepper::controlPosition(double distance, double rpm){
 	RTOSTmrDel(timer_obj1,&err_val);
 	if(err_val != 0)
 		return -1;
-
+	inUse=0;
 	return 0;
 
 }
