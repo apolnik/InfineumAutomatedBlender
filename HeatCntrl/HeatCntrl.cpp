@@ -91,11 +91,10 @@ void setFallTimer(){
 int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	INT8U err_val;
 	if(rise!=NULL)
-		RTOSTmrDel(rise,&err_val);
+		RTOSTmrDel((RTOS_TMR*)rise,&err_val);
 	if(fall!=NULL)
-		RTOSTmrDel(fall,&err_val);
+		RTOSTmrDel((RTOS_TMR*)fall,&err_val);
 	rise = fall = NULL;
-	INT8U err_val;
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8 *timer_name[2] = {"Rise", "Temp"};
 	RTOS_TMR *temp_timer = RTOSTmrCreate(waitdelay+HEAT_FREQ*dutycyc,0,
