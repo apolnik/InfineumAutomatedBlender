@@ -531,7 +531,7 @@ void *RTOSTmrTask(void *temp2)
 // Timer Initialization Function
 void RTOSTmrInit(void)
 {
-	INT32U timer_count = 10;
+	INT32U timer_count = 50;
 	INT8U	retVal;
 	pthread_attr_t attr;
 

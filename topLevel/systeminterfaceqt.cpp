@@ -19,13 +19,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    int waitdelay = 1;
+    int waitdelay = 1000;
+    	QString errmsg = "Error Starting Timer";
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Display"};
 	displayText labels = {ui->disReadOut,ui->tempReadOut,ui->weightReadOut};
 	RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
 										updateDisplay,&labels,timer_name[0],&err_val);
-	RTOSTmrStart(timer_obj1, &err_val);
+	if(err_val==0)
+		RTOSTmrStart(timer_obj1, &err_val);
+	else
+		ui->tempReadOut->setText(errmsg);
 }
 
 MainWindow::~MainWindow()
