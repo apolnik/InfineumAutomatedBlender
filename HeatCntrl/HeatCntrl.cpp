@@ -1,17 +1,20 @@
+#include "gpioTool.h"
 #include "HeatCntrl.h"
 #include "SysParam.h"
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
+#include "sys/wait.h"
+
 typedef struct{
 	double Kp;
 	double Ki;
 	double Kd;
 } PID;
 HeatCntrl::HeatCntrl(int heat){
-	headID = heat;
-	duty = DEFAULT_DUTY_CYC;
-	select(heatID){
+	this->headID = heat;
+	this->duty = DEFAULT_DUTY_CYC;
+	switch(this->heatID){
 		case HEATPAD1_PIN:
 			IRtempSensor = new tempMeasurement(IRTEMP1_PIN);
 			CtempSensor = new tempMeasurement(CTEMP1_PIN);
@@ -32,11 +35,12 @@ HeatCntrl::HeatCntrl(int heat){
 
 			break;
 	}
-	exportPin(headID);
-	setPinDir(headID,OUT);
+	exportPin(this->headID);
+	setPinDir(this->headID,OUT);
 }
 
-int HeatCntrl::activateHeater(int mode){
+int HeatCntrl::activateHeater(){
+	int mode = arg[0];
 	return setPin(headID,mode);
 }
 
@@ -76,14 +80,16 @@ int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 
 }
 void setFallTimer(){
+	RTOS_TMR* fall = arg[0];
 	INT8U err_val;
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8* timer_name[1] = {"Fall"};
 	int rise_mode=0;
-	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&rise_mode,timer_name[0],&err_val);
+	fall = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&rise_mode,timer_name[0],&err_val);
 
 }
 int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
+	INT8U err_val;
 	if(rise!=NULL)
 		RTOSTmrDel(rise,&err_val);
 	if(fall!=NULL)
@@ -93,7 +99,7 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	int waitdelay = 1000/HEAT_FREQ;
 	INT8 *timer_name[2] = {"Rise", "Temp"};
 	RTOS_TMR *temp_timer = RTOSTmrCreate(waitdelay+HEAT_FREQ*dutycyc,0,
-		RTOS_TMR_ONE_SHOT,setFallTimer,NULL,timer_name[1],&err_val);
+		RTOS_TMR_ONE_SHOT,setFallTimer,&fall,timer_name[1],&err_val);
 	int rise_mode=1;
 	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&rise_mode,timer_name[0],&err_val);
 	RTOSTmrDel(temp_timer,&err_val);
