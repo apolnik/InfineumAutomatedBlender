@@ -19,12 +19,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    int waitdelay = 500;
+    int waitdelay = 1;
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Display"};
 	displayText labels = {ui->disReadOut,ui->tempReadOut,ui->weightReadOut};
 	RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
 										updateDisplay,&labels,timer_name[0],&err_val);
+	RTOSTmrStart(timer_obj1, &err_val);
 }
 
 MainWindow::~MainWindow()
@@ -66,7 +67,8 @@ void updateDisplay(void* label){
 	double disMeasurement=0;
 	s.disSensor.measureDistance(&disMeasurement);
 	dis = QString::number(disMeasurement);
+	QString garbage = "garbage";
 	labels->disReadOut->setText(dis);
-	//labels->tempReadOut->setText(temp);
+	labels->tempReadOut->setText(garbage);
 	//labels->weightReadOut->setText(weight);
 }

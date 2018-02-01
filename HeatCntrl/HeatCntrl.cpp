@@ -98,7 +98,7 @@ void setFallTimer(void* ptr){
 	int rise_mode=0;
 	struct args_timer args_fall = {rise_mode,heatID};
 	fall = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&args_fall,timer_name[0],&err_val);
-
+	RTOSTmrStart(fall, &err_val);
 }
 int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	INT8U err_val;
@@ -112,6 +112,7 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	struct args_setup new_fall = {(RTOS_TMR*)fall,heatID};
 	RTOS_TMR *temp_timer = RTOSTmrCreate(waitdelay+HEAT_FREQ*dutycyc,0,
 		RTOS_TMR_ONE_SHOT,setFallTimer,&new_fall,timer_name[1],&err_val);
+	RTOSTmrStart(temp_timer, &err_val);
 	int rise_mode=1;
 	struct args_timer rise_args={
 		rise_mode,
@@ -119,6 +120,7 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 	};
 	struct args_timer args_rise = {rise_mode,heatID};
 	rise = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,activateHeater,&args_rise,timer_name[0],&err_val);
+	RTOSTmrStart((RTOS_TMR*)rise, &err_val);
 	RTOSTmrDel(temp_timer,&err_val);
 }
 int HeatCntrl::testHeatCntrl(int iterations, int fd){
