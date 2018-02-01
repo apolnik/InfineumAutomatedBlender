@@ -39,7 +39,7 @@ HeatCntrl::HeatCntrl(int heat){
 	setPinDir(this->headID,OUT);
 }
 
-int HeatCntrl::activateHeater(){
+void HeatCntrl::activateHeater(){
 	int mode = arg[0];
 	return setPin(headID,mode);
 }
