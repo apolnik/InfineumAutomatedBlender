@@ -13,19 +13,19 @@ typedef struct{
 	QLabel* weightReadOut;
 
 }displayText;
-
-void updateDisplay(void* label){
-	displayText* labels = (displayText*)label;
-	QString weight;
-	QString temp;
-	QString dis;
+Ui::MainWindow* gui=NULL;
+void MainWindow::updateDisplay(void* label){
+	//displayText* labels = (displayText*)label;
+	//QString weight;
+	//QString temp;
+	//QString dis;
 	double disMeasurement=0;
-	s.disSensor.measureDistance(&disMeasurement);
-	dis = QString::number(disMeasurement);
+	//s.disSensor.measureDistance(&disMeasurement);
+	//dis = QString::number(disMeasurement);
 	QString garbage = "garbage";
-	labels->disReadOut->setText(dis);
-	labels->tempReadOut->setText(garbage);
-	//labels->weightReadOut->setText(weight);
+	//labels->disReadOut->setText(dis);
+	gui->tempReadOut->setText(garbage);
+	//ui->weightReadOut->setText(weight);
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -33,7 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    gui = ui;
     int waitdelay = 1000;
+	OSTickInitialize();
+	RTOSTmrInit();
     	QString errmsg = "Error Starting Timer";
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Display"};

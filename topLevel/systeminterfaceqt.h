@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    static void updateDisplay(void* label);
 private slots:
 
     void on_pump1Btn_clicked();
