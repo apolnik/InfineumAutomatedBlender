@@ -14,12 +14,12 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 
-
+	OSTickInitialize();
+    		RTOSTmrInit();
 	QApplication a(argc, argv);
     MainWindow w;
     w.show();
-    	OSTickInitialize();
-    		RTOSTmrInit();
+    	
     return a.exec();
 
 
