@@ -13,7 +13,21 @@ typedef struct{
 	QLabel* weightReadOut;
 
 }displayText;
-void updateDisplay(void*);
+
+void updateDisplay(void* label){
+	displayText* labels = (displayText*)label;
+	QString weight;
+	QString temp;
+	QString dis;
+	double disMeasurement=0;
+	s.disSensor.measureDistance(&disMeasurement);
+	dis = QString::number(disMeasurement);
+	QString garbage = "garbage";
+	labels->disReadOut->setText(dis);
+	labels->tempReadOut->setText(garbage);
+	//labels->weightReadOut->setText(weight);
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -63,16 +77,4 @@ void MainWindow::on_linearRail_rangeChanged(int min, int max)
 {
 
 }
-void updateDisplay(void* label){
-	displayText* labels = (displayText*)label;
-	QString weight;
-	QString temp;
-	QString dis;
-	double disMeasurement=0;
-	s.disSensor.measureDistance(&disMeasurement);
-	dis = QString::number(disMeasurement);
-	QString garbage = "garbage";
-	labels->disReadOut->setText(dis);
-	labels->tempReadOut->setText(garbage);
-	//labels->weightReadOut->setText(weight);
-}
+
