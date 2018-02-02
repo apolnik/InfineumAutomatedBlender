@@ -5,6 +5,7 @@
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
+#include "gpioTool.h"
 Stepper* s;
 RTOS_TMR *timer_obj1;//updates displays text
 typedef struct{
@@ -32,15 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-	s = new Stepper();
-	int direction = FORWARD;
-	s->setMode(FULLSTEP);
-        s->step(&direction);
-        s->step(&direction);
-        s->step(&direction);
-        s->step(&direction);
-        s->step(&direction);
-
 	QString dis;
     	ui->setupUi(this);
     	gui = ui;
@@ -53,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	displayText labels = {ui->disReadOut,ui->tempReadOut,ui->weightReadOut};
 	RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
 											updateDisplay,&labels,timer_name[0],&err_val);
-	
+	QString export1 = QString::number(exportPin(66));
+	gui->disReadOut->setText(export1);
 	//double disMeasurement=0;
         //s.disSensor.measureDistance(&disMeasurement);
         //dis = QString::number(disMeasurement);
@@ -65,6 +58,15 @@ MainWindow::MainWindow(QWidget *parent) :
 		RTOSTmrStart(timer_obj1, &err_val);
 	else
 		ui->tempReadOut->setText(QString::number(err_val));
+	s = new Stepper();
+        int direction = FORWARD;
+        s->setMode(FULLSTEP);
+        s->step(&direction);
+        s->step(&direction);
+        s->step(&direction);
+        s->step(&direction);
+        s->step(&direction);
+
 }
 
 MainWindow::~MainWindow()
