@@ -83,8 +83,8 @@ int exportPin(int pinNum){
 	char buf[MAX_BUF];
 	char ch;
 	int len = snprintf(buf, sizeof(buf), "%d", pinNum);
-	write(fd, buf, len);
-	close(fd);
+	//write(fd, buf, len);
+	//close(fd);
 
 	fd = open("/sys/class/gpio/export", O_WRONLY);
 
@@ -93,7 +93,7 @@ int exportPin(int pinNum){
 
 	}
 	else{
-		len = snprintf(buf, sizeof(buf), "%d", pinNum);
+		//len = snprintf(buf, sizeof(buf), "%i", pinNum);
 		write(fd, buf, len);
 
 
@@ -106,8 +106,8 @@ int unexportPin(int pinNum){
 	char buf[MAX_BUF];
 	char ch;
 	int len = snprintf(buf, sizeof(buf), "%d", pinNum);
-	write(fd, buf, len);
-	close(fd);
+	//write(fd, buf, len);
+	//close(fd);
 
 	fd = open("/sys/class/gpio/unexport", O_WRONLY);
 
@@ -116,7 +116,7 @@ int unexportPin(int pinNum){
 
 	}
 	else{
-		len = snprintf(buf, sizeof(buf), "%d", pinNum);
+		//len = snprintf(buf, sizeof(buf), "%d", pinNum);
 		write(fd, buf, len);
 
 
