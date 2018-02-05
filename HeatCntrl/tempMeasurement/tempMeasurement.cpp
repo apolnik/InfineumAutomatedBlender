@@ -18,11 +18,19 @@ double tempMeasurement::measureHeat(){
 		sensorAddr = IR_TEMP_DEV_ADDR;
 	else
 		sensorAddr = C_TEMP_DEV_ADDR;
-	i2cTool irSensor;
+	i2cTool Sensor;
 	char regAddr = IR_TEMP_OBJ_1;
-	if(irSensor.readBytes(sensorAddr,regAddr,3, buf)!=3)
+	if(sensorAddr == C_TEMP_DEV_ADDR){
+		//change regAddr to the correct contact reg addr.
+		regAddr=MCP9808_REG_AMBIENT_TEMP;
+	}
+	if(Sensor.readBytes(sensorAddr,regAddr,3, buf)!=3)
 		return -1;
-	double tempk = double((int(buf[1])<<8)|buf[0]) * .02;
+	double tempk;
+	if(regAddr == MCP9808_REG_AMBIENT_TEMP)
+		tempk = double((buf[0] & 0x1F)*16 + buf[1]/16)+273.15;
+	else
+		tempk = double((int(buf[1])<<8)|buf[0]) * .02;
 	return tempk;
 }
 double tempMeasurement::avgData(){
