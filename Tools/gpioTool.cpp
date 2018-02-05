@@ -15,7 +15,7 @@ int setPin(int pinNum, char val){
 	std::fstream fs;
 	snprintf(buf, sizeof(buf),  "/sys/class/gpio/gpio%d/value", pinNum);
 	fs.open(buf);
-        fs << (val+'0');
+    fs << (val+'0');
 
 	//fd = open(buf, O_WRONLY);
 	//if(fd<0){
@@ -67,8 +67,8 @@ int setPinDir(int pinNum, int dir){//output=1,input=0
         
         
 	snprintf(buf, sizeof(buf),  "/sys/class/gpio/gpio%d/direction", pinNum);
-	 std::fstream fs;
-        fs.open(buf);
+	std::fstream fs;
+    fs.open(buf);
         
 
 	//fd = open(buf, O_WRONLY);
@@ -135,9 +135,9 @@ int unexportPin(int pinNum){
 	//int len = snprintf(buf, sizeof(buf), "%d", pinNum);
 	//write(fd, buf, len);
 	//close(fd);
-	 std::fstream fs;
-        fs.open("/sys/class/gpio/unexport");
-        fs << pinNum;
+	std::fstream fs;
+    fs.open("/sys/class/gpio/unexport");
+    fs << pinNum;
 	fs.close();
 	//fd = open("/sys/class/gpio/unexport", O_WRONLY);
 

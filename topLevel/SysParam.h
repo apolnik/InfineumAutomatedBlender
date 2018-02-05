@@ -5,10 +5,15 @@
 #define STEPPER_SLP_PIN 66
 #define STEPPER_DIR_PIN 68
 
-#define DCMOT1_PIN 6
-#define DCMOT2_PIN 7
-#define DCMOT3_PIN 8
-#define DCMOT4_PIN 9
+#define DCMOT1_DIR_PIN 6
+#define DCMOT2_DIR_PIN 7
+#define DCMOT3_DIR_PIN 8
+#define DCMOT4_DIR_PIN 9
+#define DCMOT1_PWM_PIN 6
+#define DCMOT2_PWM_PIN 7
+#define DCMOT3_PWM_PIN 8
+#define DCMOT4_PWM_PIN 9
+
 
 #define IRTEMP1_PIN 10
 #define IRTEMP2_PIN 11
@@ -33,6 +38,10 @@
 #define BEAKER2_POS	12
 #define	BEAKER3_POS	18
 #define GARBAGE		24
+
+//DC Motor Parameters
+#define DEFAULT_PERIOD 4000
+#define DEFAULT_DUTY 2000
 //IR Temp Sensor I2C Addresses Read
 #define IR_TEMP_OBJ_1		0x07
 //IR Temp Sensor I2C Addresses Write
