@@ -3,7 +3,9 @@
 #include "SysParam.h"
 
 #include "sys/wait.h"
-
+//Make sure to make a new p_thread when using the heater otherwise
+//you will probably block all the other stuff you need to do.
+//make sure to kill the p_thread when done with it.
 typedef struct{
 	double Kp;
 	double Ki;
@@ -67,8 +69,8 @@ double HeatCntrl::getTemp(){
 int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 	int c_pid = fork();
 	
-	RTOS_TMR *stat_timer=NULL;
-	RTOS_TMR *kill_timer=NULL;
+	stat_timer=NULL;
+	kill_timer=NULL;
 	INT8U err_val;
 	//Forking because this is going to be pretty intensive.
 	if (c_pid < 0) { /* error occurred */
@@ -84,22 +86,25 @@ int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 		//Set Initial PWM On Heater: Default is 50%
 		setPWM(DEFAULT_DUTY_CYC,rise_timer,fall_timer);
 		//PID Control
-		while(kill==0){
-
-		}
+		
+		
 	}
 	else { /* parent process */
 		/* parent will wait for the child to complete */
 		waitpid(c_pid,NULL,0);
 	}
-	RTOSTmrDel(fall_timer,&err_val);
-	RTOSTmrDel(rise_timer,&err_val);
-	RTOSTmrDel(stat_timer,&err_val);
-	RTOSTmrDel(kill_timer,&err_val);
+
 }
 void killPID(void *arg){
+	INT8U err_val;
+
 	HeatCntrl* handle = (HeatCntrl*) arg;
 	handle->kill = 1;
+	RTOSTmrDel(handle->fall_timer,&err_val);
+	RTOSTmrDel(handle->rise_timer,&err_val);
+	RTOSTmrDel(handle->stat_timer,&err_val);
+	RTOSTmrDel(handle->kill_timer,&err_val);
+	exit();
 
 }
 void setFallTimer(void* ptr){
@@ -164,7 +169,7 @@ int HeatCntrl::testHeatCntrl(int iterations, int fd){
 void HeatCntrl::measureStats (void* arg){
 	HeatCntrl* handle = (HeatCntrl*) arg;
 	handle->temp_pres = IRtempSensor->measureHeat();
-	
+
 	handle->updatePWM();
 }
 PID* updateConstants(){
@@ -196,6 +201,7 @@ void HeatCntrl::updatePWM(){
 				T_crit -=1000*.1;
 				kp_crit-=1000*.1;
 				kill=1;
+				killPID(this);
 			}
 	}
 	if(pwm>100)

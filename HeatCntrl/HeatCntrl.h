@@ -1,6 +1,6 @@
 #ifndef HeatCntrl_H
 #define HeatCntrl_H
- 
+
 #include "tempMeasurement.h"
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
@@ -18,7 +18,8 @@ public:
 	double ki;
 	double kp_crit;
 	double T_crit;
-	double derivatives[10];
+	double derivatives[1000];
+	int counter;
 	int heatID;
 	int heaterType;
 	double temp;
@@ -31,7 +32,8 @@ public:
 	tempMeasurement* CtempSensor;
 	RTOS_TMR *fall_timer;
 	RTOS_TMR *rise_timer;
-
+	RTOS_TMR *stat_timer;
+	RTOS_TMR *kill_timer;
 	HeatCntrl(int heat);
 
 	//void activateHeater();

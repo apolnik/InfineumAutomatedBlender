@@ -386,6 +386,7 @@ void init_hash_table(void)
 // Insert a Timer Object in the Hash Table
 void insert_hash_entry(RTOS_TMR *timer_obj)
 {
+	if(timer_obj==NULL)return;
 	// Calculate the index using Hash Function
 	//fprintf(stdout, "Calculating index for hash... \n");
 	INT32U index = timer_obj->RTOSTmrMatch % HASH_TABLE_SIZE;
@@ -448,6 +449,7 @@ void insert_hash_entry(RTOS_TMR *timer_obj)
 // Remove the Timer Object entry from the Hash Table
 void remove_hash_entry(RTOS_TMR *timer_obj)
 {
+	if(timer_obj==NULL)return;
 	// Calculate the index using Hash Function
 	INT32U index = timer_obj->RTOSTmrMatch % HASH_TABLE_SIZE;
 	// Lock the Resources
@@ -504,7 +506,7 @@ void *RTOSTmrTask(void *temp2)
 			//fprintf(stdout, "Times match... \n");
 			//fprintf(stdout, temp3->RTOSTmrName);
 			//fprintf(stdout, " %i \n", temp3->RTOSTmrMatch);
-			temp3->RTOSTmrCallback(temp3->RTOSTmrCallbackArg);
+			//temp3->RTOSTmrCallback(temp3->RTOSTmrCallbackArg);
 			RTOS_TMR* temp4 = temp3->RTOSTmrNext;
 			//fprintf(stdout, "Removing from hash table... \n");
 			remove_hash_entry(temp3);
@@ -518,7 +520,9 @@ void *RTOSTmrTask(void *temp2)
 				
 				//fprintf(stdout, "Changing State... \n");
 			}
+			temp3->RTOSTmrCallback(temp3->RTOSTmrCallbackArg);
 			temp3 = temp4;
+
 			if(temp3 == NULL) break;
  
 		}

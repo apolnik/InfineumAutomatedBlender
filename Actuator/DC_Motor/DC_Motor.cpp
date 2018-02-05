@@ -3,6 +3,8 @@
 #include "gpioTool.h"
 #include "pwm.h"
 DC_Motor::DC_Motor(int motorID){
+	position = motorID;
+	on_off = OFF;
 	if(motorID==DCMOT1_DIR_PIN){
 		exportPin(motorID)
 		setPinDir(motorID,1);
@@ -60,5 +62,12 @@ int DC_Motor::setSpeed(){
 
 
 
+
+}
+int toggleState(){//toggles whether the motor is on or off.
+	if(on_off == OFF)
+		start_running_pwm(position);
+	else
+		stop_pwm(position);
 
 }
