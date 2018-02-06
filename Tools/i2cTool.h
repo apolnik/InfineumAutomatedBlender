@@ -18,7 +18,7 @@ public:
 	int sendByte(char data, char dev_addr, char reg_addr);
 	int readBytes(char dev_addr, char reg_addr, int size, char* output);
 	int setAddress(char addr);
-
+	int smbusReadWord(char devaddr, char regaddr);
 
 
 

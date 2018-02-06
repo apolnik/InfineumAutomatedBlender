@@ -4,7 +4,7 @@
 #include "Actuator.h"
 #define ON 1
 #define OFF 0
-class DC_Motor : public Actuator{
+class DC_Motor{
 
 	public:
 	bool stirrer;
@@ -13,8 +13,8 @@ class DC_Motor : public Actuator{
 	double torque;
 	double power;
 	int on_off;
-	DC_Motor();
-
+	DC_Motor(int);
+	int toggleState();
 	double getSpeed();
 	int setSpeed();
 

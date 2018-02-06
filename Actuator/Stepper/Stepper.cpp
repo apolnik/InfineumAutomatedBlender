@@ -15,10 +15,12 @@ Stepper::Stepper(){
 	setPinDir(STEPPER_STEP_PIN,OUT);
 	setPinDir(STEPPER_SLP_PIN,OUT);
 	setPinDir(STEPPER_DIR_PIN,OUT);
+	setPin(STEPPER_SLP_PIN,1);
 	inUse=0;
 	Proximity temp;
 	disSensor=temp;
 	stepper_motor = this;
+	setMode(0);//FULLSTEP
 }
 Stepper::~Stepper(){
 	unexportPin(STEPPER_MS1_PIN);

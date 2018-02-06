@@ -6,6 +6,7 @@
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
 #include "gpioTool.h"
+#include "tempMeasurement.h"
 Stepper* s;
 RTOS_TMR *timer_obj1;//updates displays text
 typedef struct{
@@ -15,6 +16,7 @@ typedef struct{
 
 }displayText;
 Ui::MainWindow* gui=NULL;
+tempMeasurement* tm;
 void MainWindow::updateDisplay(void* label){
 	//displayText* labels = (displayText*)label;
 	//QString weight;
@@ -23,10 +25,13 @@ void MainWindow::updateDisplay(void* label){
 	//double disMeasurement=0;
 	//s.disSensor.measureDistance(&disMeasurement);
 	//dis = QString::number(disMeasurement);
-	QString garbage = "garbage";
+	double temp = tm->measureHeat();
+
+	QString temp_qt = QString::number(temp);
 	//gui->disReadOut->setText(dis);
-	gui->tempReadOut->setText(garbage);
+	gui->tempReadOut->setText(temp_qt);
 	//ui->weightReadOut->setText(weight);
+
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -36,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	QString dis;
     	ui->setupUi(this);
     	gui = ui;
+	tm = new tempMeasurement(IRTEMP1_PIN);
     	int waitdelay = 1000;
 	OSTickInitialize();
 	RTOSTmrInit();

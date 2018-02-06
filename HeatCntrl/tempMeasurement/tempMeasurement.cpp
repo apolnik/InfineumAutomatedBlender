@@ -19,18 +19,28 @@ double tempMeasurement::measureHeat(){
 	else
 		sensorAddr = C_TEMP_DEV_ADDR;
 	i2cTool Sensor;
+	int result=0;
 	char regAddr = IR_TEMP_OBJ_1;
 	if(sensorAddr == C_TEMP_DEV_ADDR){
 		//change regAddr to the correct contact reg addr.
-		regAddr=MCP9808_REG_AMBIENT_TEMP;
+		//regAddr=MCP9808_REG_AMBIENT_TEMP;
 	}
-	if(Sensor.readBytes(sensorAddr,regAddr,3, buf)!=3)
-		return -1;
+	if(result = Sensor.smbusReadWord(sensorAddr,regAddr)){
+		//printf("Failed to read temp address\n");
+
+		//return -1;
+	}
+	
+	//printf("%i %i\n",(int)buf[0],(int)buf[1]);
+	
+	
+	
 	double tempk;
 	if(regAddr == MCP9808_REG_AMBIENT_TEMP)
 		tempk = double((buf[0] & 0x1F)*16 + buf[1]/16)+273.15;
 	else
-		tempk = double((int(buf[1])<<8)|buf[0]) * .02;
+		tempk =double(result)*.02;// double((int(buf[1])<<8)|buf[0]) * .02;
+	
 	return tempk;
 }
 double tempMeasurement::avgData(){

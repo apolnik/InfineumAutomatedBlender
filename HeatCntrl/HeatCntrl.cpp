@@ -11,6 +11,7 @@ typedef struct{
 	double Ki;
 	double Kd;
 } PID;
+void killPID(void *arg);
 HeatCntrl::HeatCntrl(int heat){
 	testing =0;
 	counter =0;
@@ -104,7 +105,7 @@ void killPID(void *arg){
 	RTOSTmrDel(handle->rise_timer,&err_val);
 	RTOSTmrDel(handle->stat_timer,&err_val);
 	RTOSTmrDel(handle->kill_timer,&err_val);
-	exit();
+	exit(0);
 
 }
 void setFallTimer(void* ptr){
@@ -144,7 +145,7 @@ int HeatCntrl::setPWM(double dutycyc,void*rise, void*fall){
 int HeatCntrl::testHeatCntrl(int iterations, int fd){
 
 	if(iterations == 0)
-		return;
+		return 0;
 	setDesiredTemp(273+70, 10*60);
 	char buffer[256];
 	snprintf(buffer,128,"%d",kp_crit);
@@ -164,11 +165,11 @@ int HeatCntrl::testHeatCntrl(int iterations, int fd){
 
 	write(fd,buffer,5);
 	iterations--;
-
+	return 0;
 }
 void HeatCntrl::measureStats (void* arg){
 	HeatCntrl* handle = (HeatCntrl*) arg;
-	handle->temp_pres = IRtempSensor->measureHeat();
+	handle->temp_pres = handle->IRtempSensor->measureHeat();
 
 	handle->updatePWM();
 }

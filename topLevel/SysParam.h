@@ -40,8 +40,8 @@
 #define GARBAGE		24
 
 //DC Motor Parameters
-#define DEFAULT_PERIOD 4000
-#define DEFAULT_DUTY 2000
+#define DEFAULT_PERIOD_DC 4000
+#define DEFAULT_DUTY_DC 2000
 //IR Temp Sensor I2C Addresses Read
 #define IR_TEMP_OBJ_1		0x07
 //IR Temp Sensor I2C Addresses Write
