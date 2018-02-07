@@ -14,6 +14,15 @@
 #define DCMOT3_PWM_PIN 8
 #define DCMOT4_PWM_PIN 9
 
+#define LOAD_CELL1_PIN 1
+#define LOAD_CELL2_PIN 2
+#define LOAD_CELL3_PIN 3
+#define LOAD_CELL4_PIN 4
+#define LOAD_CELL1_CLK 1
+#define LOAD_CELL2_CLK 2
+#define LOAD_CELL3_CLK 3
+#define LOAD_CELL4_CLK 4
+
 
 #define IRTEMP1_PIN 10
 #define IRTEMP2_PIN 11
@@ -75,3 +84,8 @@
 #define VALVE_8		8
 #define VALVE_9		9
 #define VALVE_10	10
+
+//Current Sensor
+#define INA219_ADDRESS              0x40
+#define INA219_REG_CURRENT			0x04
+#define INA219_REG_CALIBRATION		0x05

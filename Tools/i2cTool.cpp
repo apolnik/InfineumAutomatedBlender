@@ -36,7 +36,17 @@ int i2cTool::sendByte(char data, char dev_addr, char reg_addr){
 		return -1;
 	else return 0;
 }
+int i2cTool::sendBytes(short data, char dev_addr, char reg_addr){
+	setAddress(dev_addr);
+	char buf[2];
+	buf[0] = reg_addr;
+	buf[1] = (data&0xFF00)>>8;
+	buf[2] = (data&0x00FF);
 
+	if(write(i2cFile,buf,3)!=3)
+		return -1;
+	else return 0;
+}
 #define I2C_SMBUS_READ 1
 #define I2C_SMBUS_WORD_DATA 3
 int i2cTool::readBytes(char dev_addr, char reg_addr, int size, char* output){

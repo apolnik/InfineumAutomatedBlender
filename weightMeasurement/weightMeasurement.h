@@ -6,10 +6,11 @@ class weightMeasurement{
 	public:
 	
 	int scaleID;
+	int clkID;
 	double* data;
 	double weight;
 
-	weightMeasurement();
+	weightMeasurement(int);
 	
 	double measureWeight();
 	double avgData();
