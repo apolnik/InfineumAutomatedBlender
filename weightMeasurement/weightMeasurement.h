@@ -12,7 +12,7 @@ class weightMeasurement{
 
 	weightMeasurement(int);
 	~weightMeasurement();	
-	double measureWeight();
+	unsigned int measureWeight();
 	double avgData();
 
 };

@@ -14,11 +14,11 @@
 #define DCMOT3_PWM_PIN 8
 #define DCMOT4_PWM_PIN 9
 
-#define LOAD_CELL1_PIN 1
+#define LOAD_CELL1_PIN 44
 #define LOAD_CELL2_PIN 2
 #define LOAD_CELL3_PIN 3
 #define LOAD_CELL4_PIN 4
-#define LOAD_CELL1_CLK 1
+#define LOAD_CELL1_CLK 46
 #define LOAD_CELL2_CLK 2
 #define LOAD_CELL3_CLK 3
 #define LOAD_CELL4_CLK 4

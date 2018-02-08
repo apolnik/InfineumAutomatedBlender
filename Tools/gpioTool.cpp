@@ -15,6 +15,7 @@ int setPin(int pinNum, char val){
 	std::fstream fs;
 	snprintf(buf, sizeof(buf),  "/sys/class/gpio/gpio%d/value", pinNum);
 	fs.open(buf);
+	if(!fs.is_open())printf("Failed to open\n");
     fs << (val+'0');
 
 	//fd = open(buf, O_WRONLY);
@@ -40,6 +41,7 @@ int getPin(int pinNum, int* ret_val){
 	std::fstream fs;
 	snprintf(buf, sizeof(buf),  "/sys/class/gpio/gpio%d/value", pinNum);
 	fs.open(buf);
+	if(!fs.is_open())printf("Failed to read pin\n");
 	fs >> ch;
 	//fd = open(buf, O_RDONLY);
 	//if(fd<0){

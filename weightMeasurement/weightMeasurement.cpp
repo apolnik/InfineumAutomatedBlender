@@ -24,14 +24,14 @@ weightMeasurement::weightMeasurement(int id){
 	}
 	exportPin(clkID);
 	exportPin(id);
-	
+	printf("Load Cell pins exported\n");
 
 }
 weightMeasurement::~weightMeasurement(){
 	unexportPin(scaleID);
-
+	unexportPin(clkID);
 }
-double weightMeasurement::measureWeight(){
+unsigned int weightMeasurement::measureWeight(){
 	//"/sys/class/gpio/gpio%d/value"
 	///sys/class/gpio/gpio%d/direction
 	char dirbuf[16];
@@ -55,35 +55,45 @@ double weightMeasurement::measureWeight(){
 	
 	int clkvalfd = open(valclk,O_WRONLY);
 	int dirclkfd = open(dirclk,O_WRONLY);
-
+	if(dirfd <0 ||clkvalfd<0|| valfd <0 || dirclkfd <0){
+		printf("Error in opening gpio file...\n");
+	}
 	write(dirclkfd,"1",2);
 	write(clkvalfd,"0",2);
-	
-	write(dirfd,"1",2);
-	write(valfd,"1",2);
+	//setPinDir(clkID,1);
+	//setPin(clkID,0);
+	//setPinDir(scaleID,0);
+	//write(dirfd,"1",2);
+	//write(valfd,"1",2);
 	write(dirfd,"0",2);
 	close(dirfd);
-	while(DOUT[0]=='1'){
-		read(valfd,&DOUT,2);
-		lseek(valfd,0,0);
+	close(valfd);
+	printf("Waiting for DOUT to go low\n");
+	int d_ret=1;
+	while(d_ret==1){
+		getPin(scaleID,&d_ret);
+		//read(valfd,DOUT,2);
+		//lseek(valfd,0,SEEK_SET);
+		//printf("%c",DOUT[0]);
 	}
 	int count=0;
 	for(int i=0; i<24;i++){
-			write(clkvalfd,"1",2);
+			setPin(clkID,1);//write(clkvalfd,"1",2);
 			count=count<<1;
-			write(clkvalfd,"0",2);
-			read(valfd,&DOUT,2);
-			if(DOUT[0]=='1')
-				count++;
+			setPin(clkID,0);//write(clkvalfd,"0",2);
+			getPin(scaleID,&d_ret);
+			count +=d_ret;
+			if(d_ret!=1 && d_ret!=0)
+				printf("Got non-binary result for DOUT read: %i\n",d_ret);
 
 	}
-	write(clkvalfd,"1",2);
+	setPin(clkID,1);//write(clkvalfd,"1",2);
 	count = count ^ 0x800000;
-	write(clkvalfd,"0",2);
-	close(valfd);
-	close(dirfd);
-	close(dirclkfd);
-	close(clkvalfd);
+	setPin(clkID,0);//write(clkvalfd,"0",2);
+	//close(valfd);
+	//close(dirfd);
+	//close(dirclkfd);
+	//close(clkvalfd);
 	return count;
 }
 double weightMeasurement::avgData(){
