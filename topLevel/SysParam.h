@@ -1,4 +1,4 @@
-//PINOUT
+//PINOUT STEPPER
 #define STEPPER_MS1_PIN 67
 #define STEPPER_MS2_PIN 26
 #define STEPPER_STEP_PIN 69
@@ -88,4 +88,5 @@
 //Current Sensor
 #define INA219_ADDRESS              0x40
 #define INA219_REG_CURRENT			0x04
-#define INA219_REG_CALIBRATION		0x05
+#define INA219_REG_CONFIG                      (0x00)
+#define INA219_REG_POWER                       (0x03)

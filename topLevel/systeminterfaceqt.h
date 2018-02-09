@@ -1,7 +1,7 @@
 #ifndef SYSTEMINTERFACEQT_H
 #define SYSTEMINTERFACEQT_H
 
-#include <QMainWindow>
+#include <QtGui/QMainWindow>
 
 
 namespace Ui {

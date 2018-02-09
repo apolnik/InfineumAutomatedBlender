@@ -1,6 +1,6 @@
 #ifndef CurrentSen_H
 #define CurrentSen_H
- 
+#define INA219_REG_CALIBRATION          0x05 
 #define INA219_CONFIG_BVOLTAGERANGE_32V         (0x2000)
 #define INA219_CONFIG_GAIN_8_320MV              (0x1800)
 #define INA219_CONFIG_BADCRES_12BIT             (0x0180)
