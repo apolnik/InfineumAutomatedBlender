@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
 	while(1){
 		printf("Starting to measure weight\n");
 		unsigned int weight = w.measureWeight();
-    		printf("Weight Value: %d\n",weight);
+    		printf("Weight Value: %u\n",weight);
     		printf("Continue? (b to break, o for options)\n");
     		char decision[32];
     		scanf("%s",decision);
