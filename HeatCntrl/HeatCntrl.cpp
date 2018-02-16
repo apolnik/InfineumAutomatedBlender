@@ -61,12 +61,44 @@ void activateHeater(void* ptr){
 	int mode = ((args_timer*)ptr)->rise_mode_t;
 	setPin(heatID,mode);
 }
+void checkHeater(void* args){
+	HeatCntrl* tmp = (HeatCntrl*)args;
+	double temp = CtempSensor->measureHeat();
+	if(temp>target_temp)
+		setPin(tmp->heatID,0);
+	else
+		setPin(tmp->heatID,1);
 
+}
 double HeatCntrl::getTemp(){
 
 	return IRtempSensor->measureHeat();
 
 }
+int HeatCntrl::on_off_cntrl(void *args){
+	// int c_pid = fork();
+	// double* temp_targ = (double*)args[0];
+	// double* hold_time = (double*)args[1];
+	// if (c_pid < 0) { /* error occurred */
+	// 	return -1;
+	// }
+	// else if (c_pid == 0) { /* child process */
+	// 	int waitdelay = 100;
+	// 	INT8* timer_name[2] = {"Stat","Kill"};
+	// 	stat_timer = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,checkHeater,
+	// 		(void*)this,timer_name[0],&err_val);
+	// 		RTOSTmrStart((RTOS_TMR*)rise, &err_val);
+
+	// }
+	// else{
+	// 	waitpid(c_pid,NULL,0);
+
+
+
+	// }
+
+}
+
 int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 	int c_pid = fork();
 	
@@ -80,8 +112,8 @@ int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 	else if (c_pid == 0) { /* child process */
 		int waitdelay = 100;
 		INT8* timer_name[2] = {"Stat","Kill"};
-		stat_timer = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,measureStats,
-			this,timer_name[0],&err_val);
+		stat_timer = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,checkHeater,
+			(void*)this,timer_name[0],&err_val);
 		kill_timer = RTOSTmrCreate(hold_time*1000,0,RTOS_TMR_ONE_SHOT,killPID,this,
 				timer_name[1],&err_val);
 		//Set Initial PWM On Heater: Default is 50%

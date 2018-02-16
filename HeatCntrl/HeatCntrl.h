@@ -35,7 +35,7 @@ public:
 	RTOS_TMR *stat_timer;
 	RTOS_TMR *kill_timer;
 	HeatCntrl(int heat);
-
+	int on_off_cntrl(void* args);
 	//void activateHeater();
 	int setDesiredTemp(double temp, double hold_time);
 	double getTemp();
