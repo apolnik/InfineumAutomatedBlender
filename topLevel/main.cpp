@@ -29,7 +29,9 @@ int main(int argc, char *argv[]){
 		OSTickInitialize();
        		RTOSTmrInit();
 		weightMeasurement w(LOAD_CELL1_PIN);
-
+		Stepper *s = new Stepper();
+		int direction = FORWARD;
+		s->setMode(FULLSTEP);
 	while(1){
 		printf("Starting to measure weight\n");
 		unsigned int weight = w.measureWeight();
@@ -52,7 +54,14 @@ int main(int argc, char *argv[]){
 
     		}
     		else if(decision[0]=='s'){
+			for(int ii=0;ii<2000;ii++){
+				//s->step(&direction);
+				
+				setPin(STEPPER_STEP_PIN,0);
+		                setPin(STEPPER_STEP_PIN,1);
 
+				usleep(1000);
+			}
     		}
     		else if(decision[0]=='v'){
     		

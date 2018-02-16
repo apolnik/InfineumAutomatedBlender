@@ -8,7 +8,7 @@
 #include <iostream>
 #include <fstream>
 
-int setPin(int pinNum, char val){
+int setPin(int pinNum, int val){
 	int fd;
 	char buf[MAX_BUF];
 	char ch;
