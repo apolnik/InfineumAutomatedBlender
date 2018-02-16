@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "SysParam.h"
-#include <prussdrv.h>
-#include <pruss_intc_mapping.h>
+//#include <prussdrv.h>
+//#include <pruss_intc_mapping.h>
 //https://github.com/luigif/hcsr04/blob/master/hcsr04.c
 
 Proximity::Proximity(){
@@ -16,7 +16,7 @@ Proximity::Proximity(){
 	distance = BAR_LENGTH;
 }
 int Proximity::measureDistance(double* ret_val){
-	
+	#if 0
 	tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
 	prussdrv_init();
 	/* Open PRU Interrupt */
@@ -48,7 +48,8 @@ int Proximity::measureDistance(double* ret_val){
 
 	}
 	data[0]=distance;
-
+	#endif
+	return 0;
 }
 double Proximity::avgData(){
 

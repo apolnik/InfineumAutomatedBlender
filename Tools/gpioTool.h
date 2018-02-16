@@ -4,7 +4,7 @@
 #define MAX_BUF 64
 #define OUT 1
 #define IN 0
-	int setPin(int pinNum, char val);
+	int setPin(int pinNum, int val);
 	int exportPin(int pinNum);
 	int unexportPin(int pinNum);
 

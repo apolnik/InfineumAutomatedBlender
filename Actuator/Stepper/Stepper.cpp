@@ -34,19 +34,19 @@ Stepper::~Stepper(){
 }
 void Stepper::step(void* direction){
 	int* dir = (int*)direction;
-	if(&dir == FORWARD){
-		setPin(STEPPER_DIR_PIN,1);
+	//if(&dir == FORWARD){
+	//	setPin(STEPPER_DIR_PIN,1);
 		setPin(STEPPER_STEP_PIN,0);
 		setPin(STEPPER_STEP_PIN,1);
-	}	
-	else{
-
-		setPin(STEPPER_DIR_PIN,0);
-		setPin(STEPPER_STEP_PIN,0);
-		setPin(STEPPER_STEP_PIN,1);
-
-
-	}
+//	}	
+//	else{
+//
+//		setPin(STEPPER_DIR_PIN,0);
+//		setPin(STEPPER_STEP_PIN,0);
+//		setPin(STEPPER_STEP_PIN,1);
+//
+//
+//	}
 
 }
 int Stepper::getPosition(double* ret_val){
