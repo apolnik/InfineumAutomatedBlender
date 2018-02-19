@@ -13,6 +13,10 @@
 #include "SysParam.h"
 #include "Stepper.h"
 #include "weightMeasurement.h"
+#include "HeatCntrl.h"
+#include "tof.h"
+#include "CurrentSen.h"
+#include "ValveCntrl.h"
 using namespace std;
 
 
@@ -32,6 +36,18 @@ int main(int argc, char *argv[]){
 		Stepper *s = new Stepper();
 		int direction = FORWARD;
 		s->setMode(FULLSTEP);
+		HeatCntrl* h = new HeatCntrl(HEATPAD1_PIN);
+		//h->setDesiredTemp(100,100000);
+		CurrentSen* current = new CurrentSen(0);
+		int tof = tofInit(1,0x29,2);
+		ValveCntrl valve1(VALVE_1);
+		ValveCntrl valve2(VALVE_2);
+		PumpCntrl pump1(PERISTALLTIC120,0);
+		PumpCntrl pump2(PERISTALLTIC12,PERI12_DIR);
+		if(tof!=1){
+			printf("Error Init TOF\n");
+
+		}
 	while(1){
 		printf("Starting to measure weight\n");
 		unsigned int weight = w.measureWeight();
@@ -39,7 +55,7 @@ int main(int argc, char *argv[]){
     		printf("Continue? (b to break, o for options)\n");
     		char decision[32];
     		scanf("%s",decision);
-
+	
     		if(decision[0]=='b'){
     			break;
     		}
@@ -48,7 +64,7 @@ int main(int argc, char *argv[]){
     			printf("s for stepper motor routine\n");
     			printf("v for valve routine\n");
     			printf("p for pump routine\n");
-    			printf("d for dc motor routine\n");
+    			printf("d for demo routine\n");
 
 
 
@@ -66,12 +82,37 @@ int main(int argc, char *argv[]){
     		else if(decision[0]=='v'){
     		
     		}
+		else if(decision[0]=='c'){
+			double cur_weight = current->measureCurrent();
+			printf("%.4f\n",cur_weight);
+		}
+		else if(decision[0]=='h'){
+			
+			printf("%.2f",h->CtempSensor->measureHeat());
+
+		}
     		else if(decision[0]=='p'){
     			
     		}
     		else if(decision[0]=='d'){
-    		
+    			//demo
+			//s->controlPosition(BEAKER1_POS,60);
+			valve1.moveValve(BEAKER1_POS);
+			valve1.openValve();
+			pump1.activatePump();
+			usleep(1000000*1*60);
+			pump1.deactivatePump();
+			valve1.closeValve();
+			h->setDesiredTemp(273+60, 10*60);			
+												
     		}
+		else if(decision[0]=='f'){
+			int iDistance = tofReadDistance();
+			if (iDistance < 4096) // valid range?
+				printf("Distance = %dmm\n", iDistance);
+
+		}
+		
 	}
     return 0;
 

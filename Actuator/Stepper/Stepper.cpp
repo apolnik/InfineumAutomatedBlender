@@ -3,6 +3,7 @@
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
+#include "tof.h"
 Stepper* Stepper::stepper_motor = NULL;
 Stepper::Stepper(){
 	exportPin(STEPPER_MS1_PIN);
@@ -50,7 +51,10 @@ void Stepper::step(void* direction){
 
 }
 int Stepper::getPosition(double* ret_val){
-	int err_code = disSensor.measureDistance(ret_val);
+	//int err_code = disSensor.measureDistance(ret_val);
+	int err_code =0;
+        int tof = tofInit(1,0x29,2);
+	*ret_val = tofReadDistance()/25.4;
 	return err_code;
 }
 int Stepper::controlPosition(double distance, double rpm){
@@ -86,6 +90,7 @@ int Stepper::controlPosition(double distance, double rpm){
 
 	}
 	RTOSTmrDel(timer_obj1,&err_val);
+	inUse=0;
 	if(err_val != 0)
 		return -1;
 	inUse=0;

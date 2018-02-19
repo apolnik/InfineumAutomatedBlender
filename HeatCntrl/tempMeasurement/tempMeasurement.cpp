@@ -11,7 +11,7 @@ tempMeasurement::tempMeasurement(int sensor){
 
 double tempMeasurement::measureHeat(){
 
-	char buf[3];
+	char buf[256];
 	char sensorAddr;
 	if(tempsensorID == IRTEMP1_PIN || tempsensorID == IRTEMP2_PIN || 
 		tempsensorID == IRTEMP3_PIN ||tempsensorID == IRTEMP4_PIN)

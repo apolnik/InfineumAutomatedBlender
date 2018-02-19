@@ -63,8 +63,8 @@ void activateHeater(void* ptr){
 }
 void checkHeater(void* args){
 	HeatCntrl* tmp = (HeatCntrl*)args;
-	double temp = CtempSensor->measureHeat();
-	if(temp>target_temp)
+	double temp = tmp->CtempSensor->measureHeat();
+	if(temp>tmp->target_temp)
 		setPin(tmp->heatID,0);
 	else
 		setPin(tmp->heatID,1);

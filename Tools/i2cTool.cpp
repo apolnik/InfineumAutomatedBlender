@@ -13,7 +13,7 @@ i2cTool::~i2cTool(){
 }
 int i2cTool::open_i2c(){
 
-	i2cFile = open("/dev/i2c-2",O_RDWR);
+	i2cFile = open("/dev/i2c-1",O_RDWR);
 	if(i2cFile<0)
 		return -1;
 	else return 0;

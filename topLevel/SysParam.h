@@ -32,19 +32,24 @@
 #define CTEMP2_PIN 15
 #define CTEMP3_PIN 16
 #define CTEMP4_PIN 17
-#define HEATPAD1_PIN	18
+#define HEATPAD1_PIN	60
 #define HEATPAD2_PIN	19
 #define HEATPAD3_PIN	20
 #define HEATPAD4_PIN	21
-
+//Pump Pins
+#define PERISTALLTIC120 1
+#define DIAPHRAGM_PUMP 2
+#define PERISTALLTIC12 3
+#define PERI12_DIR 4
+#define DIA_DIR 5
 
 //Stepper Motor Parameters
 #define MIN_STEP_DIS 0.25f
 #define BASE_SPEED 60//rpm
-#define START_POS 30//inches
-#define BAR_LENGTH 32//inches
-#define BEAKER1_POS	6
-#define BEAKER2_POS	12
+#define START_POS 0//inches
+#define BAR_LENGTH 13//inches
+#define BEAKER1_POS	11
+#define BEAKER2_POS	8
 #define	BEAKER3_POS	18
 #define GARBAGE		24
 
