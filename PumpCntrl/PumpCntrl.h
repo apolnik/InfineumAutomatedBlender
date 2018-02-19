@@ -8,7 +8,7 @@ class PumpCntrl{
 	public:
 	int pumpID;
 	int dir;
-	int dir_pin
+	int dir_pin;
 	DC_Motor* pump;
 	PumpCntrl(int pumpid_,int pump_dir);
 	~PumpCntrl();

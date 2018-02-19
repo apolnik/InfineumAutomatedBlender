@@ -17,6 +17,7 @@
 #include "tof.h"
 #include "CurrentSen.h"
 #include "ValveCntrl.h"
+#include "PumpCntrl.h"
 using namespace std;
 
 

@@ -9,32 +9,46 @@
 
 class FluidTranCntrl{
 public:
-	int fluidid[5];
-	int beakers[4];
-	HeatCntrl lineHeat[]; // number of heatings on tubes TBD
-	tempMeasurement tempSensors[4];
-	ValveCntrl valves[10];
-	PumpCntrl pumps[6];
-  	weightMeasurement scales[3];
+	//int fluidid[5];
+	//int beakers[4];
+	//HeatCntrl lineHeat[]; // number of heatings on tubes TBD
+	//tempMeasurement tempSensors[4];
+	//ValveCntrl valves[10];
+	//PumpCntrl pumps[6];
+  	//weightMeasurement scales[3];
 
 	// Constructor
-	FluidTranCntrl();
+	//FluidTranCntrl();
 	// Temperature measurement
-	double getTemp(int sensorID);
+	//double getTemp(int sensorID);
 	// Transferring Process
-	int activateTransfer();
+	//int activateTransfer();
 	// Cleaning Process
-	int cleaningTransfer();
+	//int cleaningTransfer();
 	// Set the temperature
-	int setTemp(int sensorID);
+	//int setTemp(int sensorID);
 	// Set the pump power
-	int setPump(int pumpID);
+	//int setPump(int pumpID);
 	// Measure the weight
-	double getWeightTransferred(int scaleID);
+	//double getWeightTransferred(int scaleID);
 	// Terminate Transferring
-	int terminateTransfer();
+	//int terminateTransfer();
 	// Open openValves
-	void openValves(void* ID);
+	//void openValves(void* ID);
+	public:
+	
+	int fluidid;
+	ValveCntrl* valves;
+	PumpCntrl* pumps;
+	HeatCntrl* lineHeat;	
+	tempMeasurement* tempSensors;
+	weightMeasurement* scales;
 
+	FluidTranCntrl();
+
+	double getTemp();
+	int setTemp();
+	int activateTransfer();
+	double getWeightTransferred();
 };
 #endif /* FluidTranCntrl_H */
