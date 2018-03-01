@@ -4,6 +4,11 @@
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
 #include "tof.h"
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 Stepper* Stepper::stepper_motor = NULL;
 Stepper::Stepper(){
 	exportPin(STEPPER_MS1_PIN);
@@ -35,37 +40,51 @@ Stepper::~Stepper(){
 }
 void Stepper::step(void* direction){
 	int* dir = (int*)direction;
-	//if(&dir == FORWARD){
-	//	setPin(STEPPER_DIR_PIN,1);
+	if(*dir == FORWARD){
+		setPin(STEPPER_DIR_PIN,1);
 		setPin(STEPPER_STEP_PIN,0);
 		setPin(STEPPER_STEP_PIN,1);
-//	}	
-//	else{
-//
-//		setPin(STEPPER_DIR_PIN,0);
-//		setPin(STEPPER_STEP_PIN,0);
-//		setPin(STEPPER_STEP_PIN,1);
-//
-//
-//	}
+		usleep(1000);
+		fprintf(stdout,"Stepping");
+	}	
+	else{
+
+		setPin(STEPPER_DIR_PIN,0);
+		setPin(STEPPER_STEP_PIN,0);
+		setPin(STEPPER_STEP_PIN,1);
+
+
+	}
 
 }
 int Stepper::getPosition(double* ret_val){
+	
+	int model;int revision;
+	//tofGetModel(&model,&revision);
 	//int err_code = disSensor.measureDistance(ret_val);
 	int err_code =0;
-        int tof = tofInit(1,0x29,2);
-	*ret_val = tofReadDistance()/25.4;
+       // int tof = tofInit(1,0x29,2);
+	double dis = tofReadDistance()/25.4;
+	if(dis>1000) dis=*ret_val;
+	*ret_val = dis;
+	
+
+	fprintf(stdout,"%.2f\n",*ret_val);
 	return err_code;
 }
 int Stepper::controlPosition(double distance, double rpm){
 	inUse=1;
-	int waitdelay = (int)((60/rpm)/STEPSPERREV)*1000*1000;
+	int tof = tofInit(1,0x29,2);
+	int model;int revision;
+        tofGetModel(&model,&revision);
+
+	int waitdelay = 1000;//(int)((60/rpm)/STEPSPERREV)*1000*1000;
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Timer1"};
 	int direction = FORWARD;
 	RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
 										step,&direction,timer_name[0],&err_val);
-	RTOSTmrStart(timer_obj1, &err_val);
+	//RTOSTmrStart(timer_obj1, &err_val);
 	double eps = MIN_STEP_DIS;
 	double measDis;
 	if(getPosition(&measDis)==-1)
@@ -84,12 +103,17 @@ int Stepper::controlPosition(double distance, double rpm){
 		else{
 			direction=BACKWARD;
 		}
+		setPin(STEPPER_DIR_PIN,direction);
+
+		setPin(STEPPER_STEP_PIN,0);
+                setPin(STEPPER_STEP_PIN,1);
+                usleep(1000);
 
 		if(getPosition(&measDis)==-1)
 			return -1;
 
 	}
-	RTOSTmrDel(timer_obj1,&err_val);
+	//RTOSTmrDel(timer_obj1,&err_val);
 	inUse=0;
 	if(err_val != 0)
 		return -1;

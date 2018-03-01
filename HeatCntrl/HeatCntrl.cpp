@@ -1,7 +1,9 @@
 #include "gpioTool.h"
 #include "HeatCntrl.h"
 #include "SysParam.h"
-
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include "sys/wait.h"
 //Make sure to make a new p_thread when using the heater otherwise
 //you will probably block all the other stuff you need to do.
@@ -66,8 +68,12 @@ void activateHeater(void* ptr){
 	setPin(heatID,mode);
 }
 void checkHeater(void* args){
+	//printf("Checking Heater...\n");
 	HeatCntrl* tmp = (HeatCntrl*)args;
-	double temp = tmp->CtempSensor->measureHeat();
+	double temp = tmp->IRtempSensor->measureHeat();
+	
+	printf("Checking Heater... %.3f\n",temp);
+
 	if(temp>tmp->target_temp)
 		setPin(tmp->heatID,0);
 	else
@@ -105,7 +111,7 @@ int HeatCntrl::on_off_cntrl(void *args){
 
 int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 	int c_pid = fork();
-	
+	target_temp = temp + 273.15;
 	stat_timer=NULL;
 	kill_timer=NULL;
 	INT8U err_val;
@@ -120,10 +126,16 @@ int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 			(void*)this,timer_name[0],&err_val);
 		kill_timer = RTOSTmrCreate(hold_time*1000,0,RTOS_TMR_ONE_SHOT,killPID,this,
 				timer_name[1],&err_val);
-		//Set Initial PWM On Heater: Default is 50%
-		setPWM(DEFAULT_DUTY_CYC,rise_timer,fall_timer);
-		//PID Control
 		
+		//RTOSTmrStart(stat_timer,&err_val);
+		//RTOSTmrStart(kill_timer,&err_val);
+		//Set Initial PWM On Heater: Default is 50%
+		//setPWM(DEFAULT_DUTY_CYC,rise_timer,fall_timer);
+		//PID Control
+		while(1){
+			checkHeater(this);
+			usleep(100);
+		}
 		
 	}
 	else { /* parent process */

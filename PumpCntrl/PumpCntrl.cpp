@@ -28,7 +28,7 @@ int PumpCntrl::activatePump(){
 			pump->toggleState();
 	}
 	else{
-		setPin(pumpID, 1);
+		setPin(PERISTALLTIC120, 1);
 	}
 	return 0;
 
@@ -40,7 +40,7 @@ int PumpCntrl::deactivatePump(){
 			pump->toggleState();
 	}
 	else{
-		setPin(pumpID,0);
+		setPin(PERISTALLTIC120,0);
 	}
 	return 0;
 

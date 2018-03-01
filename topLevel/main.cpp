@@ -32,26 +32,28 @@ int main(int argc, char *argv[]){
 	#else
 		OSTickInitialize();
        		RTOSTmrInit();
-		weightMeasurement w(LOAD_CELL1_PIN);
+		//weightMeasurement w(LOAD_CELL1_PIN);
 		Stepper *s = new Stepper();
-		int direction = FORWARD;
+		int direction = BACKWARD;
 		s->setMode(FULLSTEP);
 		HeatCntrl* h = new HeatCntrl(HEATPAD1_PIN);
+		printf("Heat Cntrl Setup\n");
 		//h->setDesiredTemp(100,100000);
 		CurrentSen* current = new CurrentSen(0);
+		
 		int tof = tofInit(1,0x29,2);
 		ValveCntrl valve1(VALVE_1);
 		ValveCntrl valve2(VALVE_2);
-		PumpCntrl pump1(PERISTALLTIC120,0);
-		PumpCntrl pump2(PERISTALLTIC12,PERI12_DIR);
+		PumpCntrl pump1(PERISTALLTIC120,1);
+		//PumpCntrl pump2(PERISTALLTIC12,PERI12_DIR);
 		if(tof!=1){
 			printf("Error Init TOF\n");
 
 		}
 	while(1){
 		printf("Starting to measure weight\n");
-		unsigned int weight = w.measureWeight();
-    		printf("Weight Value: %u\n",weight);
+		//unsigned int weight = w.measureWeight();
+    		//printf("Weight Value: %u\n",weight);
     		printf("Continue? (b to break, o for options)\n");
     		char decision[32];
     		scanf("%s",decision);
@@ -70,9 +72,10 @@ int main(int argc, char *argv[]){
 
     		}
     		else if(decision[0]=='s'){
-			for(int ii=0;ii<2000;ii++){
+			while(1){
 				//s->step(&direction);
-				
+			//	valve1.moveValve(BEAKER1_POS);
+				setPin(STEPPER_DIR_PIN,1);
 				setPin(STEPPER_STEP_PIN,0);
 		                setPin(STEPPER_STEP_PIN,1);
 
@@ -80,28 +83,31 @@ int main(int argc, char *argv[]){
 			}
     		}
     		else if(decision[0]=='v'){
-    		
+			valve1.openValve();    		
+			valve2.openValve();
     		}
 		else if(decision[0]=='c'){
 			double cur_weight = current->measureCurrent();
 			printf("%.4f\n",cur_weight);
 		}
 		else if(decision[0]=='h'){
-			
-			printf("%.2f",h->CtempSensor->measureHeat());
+			h->setDesiredTemp(100,100000);	
+			printf("%.2f",h->IRtempSensor->measureHeat());
 
-    			
+		}
+    		else if(decision[0]=='p'){
+    			setPin(PERISTALLTIC120,1);
     		}
     		else if(decision[0]=='d'){
     			//demo
-			//s->controlPosition(BEAKER1_POS,60);
+			valve1.moveValve(BEAKER2_POS);
 			valve1.moveValve(BEAKER1_POS);
 			valve1.openValve();
 			pump1.activatePump();
-			usleep(1000000*1*60);
+			scanf("%s",decision);//usleep(1000000*1*60);
 			pump1.deactivatePump();
 			valve1.closeValve();
-			h->setDesiredTemp(273+60, 10*60);			
+			h->setDesiredTemp(60, 10*60);			
 												
     		}
 		else if(decision[0]=='f'){

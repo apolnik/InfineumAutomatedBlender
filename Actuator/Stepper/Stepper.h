@@ -8,8 +8,8 @@
 #define QUARTERSTEP 2
 #define EIGHTSTEP 3
 #define STEPSPERREV 200
-#define FORWARD 0
-#define BACKWARD 1
+#define FORWARD 1
+#define BACKWARD 0
 class Stepper: public Actuator{
 public:
 	double position;

@@ -783,16 +783,16 @@ uint16_t range;
   while ((readReg(RESULT_INTERRUPT_STATUS) & 0x07) == 0)
   {
     iTimeout++;
-    usleep(5000);
-    if (iTimeout > 50)
+    usleep(50);
+    if (iTimeout > 5)
     {
-	fprintf(stderr,"Timeout...\n");
-	fflush(stderr);
+	//fprintf(stderr,"Timeout...\n");
+	//fflush(stderr);
       return -1;
     }
   }
-	fflush(stderr);
-	fprintf(stderr,"Did not timeout\n");
+	//fflush(stderr);
+	//fprintf(stderr,"Did not timeout\n");
   // assumptions: Linearity Corrective Gain is 1000 (default);
   // fractional ranging is not enabled
   range =readReg16(RESULT_RANGE_STATUS + 10);
@@ -823,14 +823,14 @@ int iTimeout;
   while (readReg(SYSRANGE_START) & 0x01)
   {
     iTimeout++;
-    usleep(5000);
-    if (iTimeout > 50)
+    usleep(50);
+    if (iTimeout > 5)
     {
-	fprintf(stderr,"Timeout...\n");
+	//fprintf(stderr,"Timeout...\n");
       return -1;
     }
   }
-	fprintf(stderr,"No timeout...\n");
+	//fprintf(stderr,"No timeout...\n");
   return readRangeContinuousMillimeters();
 
 } /* tofReadDistance() */
