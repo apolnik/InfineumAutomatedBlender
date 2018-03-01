@@ -32,12 +32,12 @@
 #define CTEMP2_PIN 15
 #define CTEMP3_PIN 16
 #define CTEMP4_PIN 17
-#define HEATPAD1_PIN	60
+#define HEATPAD1_PIN	47
 #define HEATPAD2_PIN	19
 #define HEATPAD3_PIN	20
 #define HEATPAD4_PIN	21
 //Pump Pins
-#define PERISTALLTIC120 1
+#define PERISTALLTIC120 27
 #define DIAPHRAGM_PUMP 2
 #define PERISTALLTIC12 3
 #define PERI12_DIR 4
@@ -48,7 +48,7 @@
 #define BASE_SPEED 60//rpm
 #define START_POS 0//inches
 #define BAR_LENGTH 13//inches
-#define BEAKER1_POS	11
+#define BEAKER1_POS	0
 #define BEAKER2_POS	8
 #define	BEAKER3_POS	18
 #define GARBAGE		24
@@ -79,8 +79,8 @@
 #define HEAT_FREQ	60
 #define DEFAULT_DUTY_CYC	0.5
 
-#define VALVE_1		1
-#define VALVE_2		2
+#define VALVE_1		66
+#define VALVE_2		67
 #define VALVE_3		3
 #define VALVE_4		4
 #define VALVE_5		5
