@@ -24,18 +24,22 @@ HeatCntrl::HeatCntrl(int heat){
 	switch(heatID){
 		case HEATPAD1_PIN:
 			IRtempSensor = new tempMeasurement(IRTEMP1_PIN);
+			tempMeasurement::tmp1=IRtempSensor;
 			CtempSensor = new tempMeasurement(CTEMP1_PIN);
 			break;
 		case HEATPAD2_PIN:
 			IRtempSensor = new tempMeasurement(IRTEMP2_PIN);
+			tempMeasurement::tmp2=IRtempSensor;
 			CtempSensor = new tempMeasurement(CTEMP2_PIN);
 			break;
 		case HEATPAD3_PIN:
 			IRtempSensor = new tempMeasurement(IRTEMP3_PIN);
+			tempMeasurement::tmp3=IRtempSensor;
 			CtempSensor = new tempMeasurement(CTEMP3_PIN);
 			break;
 		case HEATPAD4_PIN:
 			IRtempSensor = new tempMeasurement(IRTEMP4_PIN);
+			tempMeasurement::tmp4=IRtempSensor;
 			CtempSensor = new tempMeasurement(CTEMP4_PIN);
 			break;
 		default:

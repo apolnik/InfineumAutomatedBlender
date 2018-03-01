@@ -17,7 +17,6 @@
 #include "tof.h"
 #include "CurrentSen.h"
 #include "ValveCntrl.h"
-#include "PumpCntrl.h"
 using namespace std;
 
 
@@ -91,8 +90,6 @@ int main(int argc, char *argv[]){
 			
 			printf("%.2f",h->CtempSensor->measureHeat());
 
-		}
-    		else if(decision[0]=='p'){
     			
     		}
     		else if(decision[0]=='d'){
