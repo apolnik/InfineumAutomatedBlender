@@ -94,14 +94,12 @@ int main(int argc, char *argv[]){
 			h->setDesiredTemp(100,100000);	
 			printf("%.2f",h->IRtempSensor->measureHeat());
 
-<<<<<<< HEAD
+
 		}
     		else if(decision[0]=='p'){
     			setPin(PERISTALLTIC120,1);
-=======
-    			
->>>>>>> 33ffdb11cd1dd77179c0670c60f629e15f547162
-    		}
+		}
+ 		
     		else if(decision[0]=='d'){
     			//demo
 			valve1.moveValve(BEAKER2_POS);

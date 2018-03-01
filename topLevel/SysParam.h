@@ -37,15 +37,12 @@
 #define HEATPAD3_PIN	20
 #define HEATPAD4_PIN	21
 //Pump Pins
-<<<<<<< HEAD
+
 #define PERISTALLTIC120 27
-#define DIAPHRAGM_PUMP 2
-#define PERISTALLTIC12 3
-=======
-#define PERISTALLTIC120 
 #define DIAPHRAGM_PUMP 44
 #define PERISTALLTIC12 ""
->>>>>>> 33ffdb11cd1dd77179c0670c60f629e15f547162
+
+
 #define PERI12_DIR 4
 #define DIA_DIR 5
 
