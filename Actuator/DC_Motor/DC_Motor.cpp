@@ -13,6 +13,7 @@ DC_Motor::DC_Motor(int motorID){
 		setPin(motorID,1);
 		setPeriod(DCMOT1_PWM_PIN,DEFAULT_PERIOD_DC);
 		setDutyCyc(DCMOT1_PWM_PIN,DEFAULT_DUTY_DC);
+		CurrentSen::stirrer_sen=new CurrentSen(STIRRER_CUR_SENSOR);
 	}
 	else if(motorID == DCMOT2_DIR_PIN){
 		exportPin(motorID);

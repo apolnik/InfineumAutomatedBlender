@@ -1,7 +1,7 @@
 //PINOUT STEPPER
-#define STEPPER_MS1_PIN 44
-#define STEPPER_MS2_PIN 65
-#define STEPPER_STEP_PIN 26
+#define STEPPER_MS1_PIN 0
+#define STEPPER_MS2_PIN 0
+#define STEPPER_STEP_PIN 0
 #define STEPPER_SLP_PIN 45
 #define STEPPER_DIR_PIN 46
 
@@ -14,11 +14,11 @@
 #define DCMOT3_PWM_PIN 8
 #define DCMOT4_PWM_PIN 9
 
-#define LOAD_CELL1_PIN 44
+#define LOAD_CELL1_PIN 1 //44
 #define LOAD_CELL2_PIN 2
 #define LOAD_CELL3_PIN 3
 #define LOAD_CELL4_PIN 4
-#define LOAD_CELL1_CLK 46
+#define LOAD_CELL1_CLK 1 //46
 #define LOAD_CELL2_CLK 2
 #define LOAD_CELL3_CLK 3
 #define LOAD_CELL4_CLK 4
@@ -37,9 +37,15 @@
 #define HEATPAD3_PIN	20
 #define HEATPAD4_PIN	21
 //Pump Pins
+<<<<<<< HEAD
 #define PERISTALLTIC120 27
 #define DIAPHRAGM_PUMP 2
 #define PERISTALLTIC12 3
+=======
+#define PERISTALLTIC120 
+#define DIAPHRAGM_PUMP 44
+#define PERISTALLTIC12 ""
+>>>>>>> 33ffdb11cd1dd77179c0670c60f629e15f547162
 #define PERI12_DIR 4
 #define DIA_DIR 5
 

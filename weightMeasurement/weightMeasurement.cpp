@@ -9,7 +9,10 @@
 #include<sys/ioctl.h>
 #include<stdint.h>
 #define SPI_PATH "/dev/spidev1.0"
-
+	weightMeasurement::beaker1_weight=0;
+	weightMeasurement::beaker2_weight=0;
+	weightMeasurement::beaker3_weight=0;
+	weightMeasurement::beaker4_weight=0;
 int transfer(int fd, unsigned char send[], unsigned char receive[], int length){
    struct spi_ioc_transfer transfer;           //the transfer structure
    transfer.tx_buf = (unsigned long) send;     //the buffer for sending data
