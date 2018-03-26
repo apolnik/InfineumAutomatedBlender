@@ -207,6 +207,7 @@
 /*=========================================================================*/
 class CurrentSen{
 	public:
+  static CurrentSen* stirrer_sen;
 	double current;
 	double* data;
 	int currentID;

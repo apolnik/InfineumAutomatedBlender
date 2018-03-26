@@ -1,4 +1,5 @@
 //PINOUT STEPPER
+#define LINRAIL			0
 #define STEPPER_MS1_PIN 0
 #define STEPPER_MS2_PIN 0
 #define STEPPER_STEP_PIN 0
@@ -54,6 +55,7 @@
 #define BEAKER1_POS	0
 #define BEAKER2_POS	8
 #define	BEAKER3_POS	18
+#define BEAKER4_POS	24
 #define GARBAGE		24
 
 //DC Motor Parameters
@@ -98,3 +100,30 @@
 #define INA219_REG_CURRENT			0x04
 #define INA219_REG_CONFIG                      (0x00)
 #define INA219_REG_POWER                       (0x03)
+
+
+//Tested num of steps needed to dispense 1 microlitter
+#define STEPS_1uL	100
+#define S1_refill_1uL	100000 	//num microseconds needed to refill 1 uL = tested value
+#define S2_refill_1uL	100000 	//num microseconds needed to refill 1 uL = tested value
+#define S3_refill_1uL	100000 	//num microseconds needed to refill 1 uL = tested value
+#define S4_refill_1uL	100000 	//num microseconds needed to refill 1 uL = tested value
+#define S5_refill_1uL	100000 	//num microseconds needed to refill 1 uL = tested value
+
+//We can share DIR pins if necessary...
+#define SYRINGE1 			0
+#define SYRINGE2 			0
+#define SYRINGE3 			0
+#define SYRINGE4 			0
+#define SYRINGE5 			0
+
+#define SYRINGE1_STEP		0
+#define SYRINGE1_DIR		0
+#define SYRINGE2_STEP		0
+#define SYRINGE2_DIR		0
+#define SYRINGE3_STEP		0
+#define SYRINGE3_DIR		0
+#define SYRINGE4_STEP		0
+#define SYRINGE4_DIR		0
+#define SYRINGE5_STEP		0
+#define SYRINGE5_DIR		0

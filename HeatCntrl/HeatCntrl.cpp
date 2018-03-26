@@ -110,7 +110,7 @@ int HeatCntrl::on_off_cntrl(void *args){
 }
 
 int HeatCntrl::setDesiredTemp(double temp,double hold_time){
-	int c_pid = fork();
+	int c_pid = 0;//fork();
 	target_temp = temp + 273.15;
 	stat_timer=NULL;
 	kill_timer=NULL;
@@ -132,9 +132,16 @@ int HeatCntrl::setDesiredTemp(double temp,double hold_time){
 		//Set Initial PWM On Heater: Default is 50%
 		//setPWM(DEFAULT_DUTY_CYC,rise_timer,fall_timer);
 		//PID Control
+		struct timeval tv;
+		gettimeofday(&tv,NULL);
+		int targetTime = tv.tv_sec+(int)hold_time;
 		while(1){
 			checkHeater(this);
 			usleep(100);
+			//Check time
+			gettimeofday(&tv,NULL);
+			if(tv.tv_sec>targetTime)
+				break;
 		}
 		
 	}

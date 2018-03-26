@@ -10,23 +10,34 @@
 #include <time.h>
 
 Stepper* Stepper::stepper_motor = NULL;
-Stepper::Stepper(){
-	exportPin(STEPPER_MS1_PIN);
-	exportPin(STEPPER_MS2_PIN);
-	exportPin(STEPPER_STEP_PIN);
-	exportPin(STEPPER_SLP_PIN);
-	exportPin(STEPPER_DIR_PIN);
-	setPinDir(STEPPER_MS1_PIN,OUT);
-	setPinDir(STEPPER_MS2_PIN,OUT);
-	setPinDir(STEPPER_STEP_PIN,OUT);
-	setPinDir(STEPPER_SLP_PIN,OUT);
-	setPinDir(STEPPER_DIR_PIN,OUT);
-	setPin(STEPPER_SLP_PIN,1);
-	inUse=0;
-	Proximity temp;
-	disSensor=temp;
-	stepper_motor = this;
-	setMode(0);//FULLSTEP
+Stepper::Stepper(int id){
+	id_ = id;
+	if(id == LINRAIL){
+		exportPin(STEPPER_MS1_PIN);
+		exportPin(STEPPER_MS2_PIN);
+		exportPin(STEPPER_STEP_PIN);
+		exportPin(STEPPER_SLP_PIN);
+		exportPin(STEPPER_DIR_PIN);
+		setPinDir(STEPPER_MS1_PIN,OUT);
+		setPinDir(STEPPER_MS2_PIN,OUT);
+		setPinDir(STEPPER_STEP_PIN,OUT);
+		setPinDir(STEPPER_SLP_PIN,OUT);
+		setPinDir(STEPPER_DIR_PIN,OUT);
+		setPin(STEPPER_SLP_PIN,1);
+		inUse=0;
+		Proximity temp;
+		disSensor=temp;
+		stepper_motor = this;
+		setMode(0);//FULLSTEP
+	}
+	else{
+		
+		exportPin(id);
+		exportPin(SYRINGE5_DIR);
+		setPinDir(id,OUT);
+		setPinDir(SYRINGE5_DIR,OUT);
+
+	}
 }
 Stepper::~Stepper(){
 	unexportPin(STEPPER_MS1_PIN);
@@ -40,22 +51,37 @@ Stepper::~Stepper(){
 }
 void Stepper::step(void* direction){
 	int* dir = (int*)direction;
-	if(*dir == FORWARD){
-		setPin(STEPPER_DIR_PIN,1);
-		setPin(STEPPER_STEP_PIN,0);
-		setPin(STEPPER_STEP_PIN,1);
-		usleep(1000);
-		fprintf(stdout,"Stepping");
-	}	
+	if(id_ == LINRAIL){
+		if(*dir == FORWARD){
+			setPin(STEPPER_DIR_PIN,1);
+			setPin(STEPPER_STEP_PIN,0);
+			setPin(STEPPER_STEP_PIN,1);
+			usleep(1000);
+			fprintf(stdout,"Stepping");
+		}	
+		else{
+
+			setPin(STEPPER_DIR_PIN,0);
+			setPin(STEPPER_STEP_PIN,0);
+			setPin(STEPPER_STEP_PIN,1);
+
+
+		}
+	}
 	else{
+		if(*dir == FORWARD){
+			setPin(STEPPER_DIR_PIN,1);
+			setPin(id_,0);
+			setPin(id_,1);
+		}
+		else{
+			setPin(STEPPER_DIR_PIN,0);
+			setPin(id_,0);
+			setPin(id_,1);
 
-		setPin(STEPPER_DIR_PIN,0);
-		setPin(STEPPER_STEP_PIN,0);
-		setPin(STEPPER_STEP_PIN,1);
-
+		}
 
 	}
-
 }
 int Stepper::getPosition(double* ret_val){
 	

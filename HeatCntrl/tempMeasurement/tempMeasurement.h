@@ -6,6 +6,10 @@
 
 class tempMeasurement{
 	public:
+	static tempMeasurement* tmp1;
+	static tempMeasurement* tmp2;
+	static tempMeasurement* tmp3;
+	static tempMeasurement* tmp4;
 	int tempsensorID;
 	double* data;
 	double temp;

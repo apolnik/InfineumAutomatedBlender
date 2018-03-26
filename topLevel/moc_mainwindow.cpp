@@ -22,7 +22,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      23,   14, // methods
+      24,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -31,39 +31,37 @@ static const uint qt_meta_data_MainWindow[] = {
 
  // slots: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x08,
-      34,   11,   11,   11, 0x08,
-      56,   11,   11,   11, 0x08,
-      84,   76,   11,   11, 0x08,
-     120,   11,   11,   11, 0x08,
-     144,   11,   11,   11, 0x08,
-     168,   11,   11,   11, 0x08,
-     196,  189,   11,   11, 0x08,
-     230,   11,   11,   11, 0x08,
-     261,  189,   11,   11, 0x08,
-     295,   11,   11,   11, 0x08,
-     326,  189,   11,   11, 0x08,
-     360,   11,   11,   11, 0x08,
-     391,  189,   11,   11, 0x08,
-     425,   11,   11,   11, 0x08,
-     456,  189,   11,   11, 0x08,
-     490,   11,   11,   11, 0x08,
-     521,  189,   11,   11, 0x08,
-     555,   11,   11,   11, 0x08,
-     586,  189,   11,   11, 0x08,
-     620,   11,   11,   11, 0x08,
-     651,  189,   11,   11, 0x08,
-     685,   11,   11,   11, 0x08,
+      36,   11,   11,   11, 0x08,
+      60,   11,   11,   11, 0x08,
+      88,   81,   11,   11, 0x08,
+     122,   11,   11,   11, 0x08,
+     153,   81,   11,   11, 0x08,
+     187,   11,   11,   11, 0x08,
+     218,   81,   11,   11, 0x08,
+     252,   11,   11,   11, 0x08,
+     283,   81,   11,   11, 0x08,
+     317,   11,   11,   11, 0x08,
+     348,   81,   11,   11, 0x08,
+     382,   11,   11,   11, 0x08,
+     413,   81,   11,   11, 0x08,
+     447,   11,   11,   11, 0x08,
+     478,   81,   11,   11, 0x08,
+     512,   11,   11,   11, 0x08,
+     543,   81,   11,   11, 0x08,
+     577,   11,   11,   11, 0x08,
+     608,   11,   11,   11, 0x08,
+     634,   11,   11,   11, 0x08,
+     661,   11,   11,   11, 0x08,
+     694,   11,   11,   11, 0x08,
+     724,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0on_pump1Btn_clicked()\0"
-    "on_pump2Btn_clicked()\0on_clnBtn_clicked()\0"
-    "min,max\0on_linearRail_rangeChanged(int,int)\0"
-    "on_config_run_clicked()\0on_run_preset_clicked()\0"
-    "on_stopBtn_clicked()\0action\0"
-    "on_dial_hot1_actionTriggered(int)\0"
+    "MainWindow\0\0on_config_run_clicked()\0"
+    "on_run_preset_clicked()\0on_stopBtn_clicked()\0"
+    "action\0on_dial_hot1_actionTriggered(int)\0"
     "on_spin_hot1_editingFinished()\0"
     "on_dial_mix1_actionTriggered(int)\0"
     "on_spin_mix1_editingFinished()\0"
@@ -79,6 +77,11 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_spin_hot4_editingFinished()\0"
     "on_dial_mix4_actionTriggered(int)\0"
     "on_spin_mix4_editingFinished()\0"
+    "on_actionSave_triggered()\0"
+    "on_actionAbout_triggered()\0"
+    "on_actionExport_Data_triggered()\0"
+    "on_actionPreset_2_triggered()\0"
+    "on_actionOpen_triggered()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -87,7 +90,6 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_ASSERT(staticMetaObject.cast(_o));
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-
         case 0: _t->on_config_run_clicked(); break;
         case 1: _t->on_run_preset_clicked(); break;
         case 2: _t->on_stopBtn_clicked(); break;
@@ -107,6 +109,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 16: _t->on_spin_hot4_editingFinished(); break;
         case 17: _t->on_dial_mix4_actionTriggered((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 18: _t->on_spin_mix4_editingFinished(); break;
+        case 19: _t->on_actionSave_triggered(); break;
+        case 20: _t->on_actionAbout_triggered(); break;
+        case 21: _t->on_actionExport_Data_triggered(); break;
+        case 22: _t->on_actionPreset_2_triggered(); break;
+        case 23: _t->on_actionOpen_triggered(); break;
         default: ;
         }
     }
@@ -144,9 +151,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 23)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 23;
+        _id -= 24;
     }
     return _id;
 }

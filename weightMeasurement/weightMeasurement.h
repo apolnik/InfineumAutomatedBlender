@@ -4,7 +4,11 @@
 
 class weightMeasurement{
 	public:
-	
+	static double beaker1_weight;
+	static double beaker2_weight;
+	static double beaker3_weight;
+	static double beaker4_weight;
+
 	int scaleID;
 	int clkID;
 	double* data;

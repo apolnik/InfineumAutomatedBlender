@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
 		OSTickInitialize();
        		RTOSTmrInit();
 		//weightMeasurement w(LOAD_CELL1_PIN);
-		Stepper *s = new Stepper();
+		Stepper *s = new Stepper(LINRAIL);
 		int direction = BACKWARD;
 		s->setMode(FULLSTEP);
 		HeatCntrl* h = new HeatCntrl(HEATPAD1_PIN);

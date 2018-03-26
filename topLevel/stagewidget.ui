@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StageWidget</class>
+ <widget class="QWidget" name="StageWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>393</width>
+    <height>194</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>391</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Stage</string>
+      </property>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>0</y>
+         <width>81</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Delete</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>80</y>
+         <width>141</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Mixing Duration (s) :</string>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="heattimeSpin">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>150</y>
+         <width>69</width>
+         <height>27</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="fluidamntSpin">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>81</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="decimals">
+        <number>4</number>
+       </property>
+       <property name="maximum">
+        <double>999.990000000000009</double>
+       </property>
+      </widget>
+      <widget class="QLabel" name="stageLabel">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>30</y>
+         <width>67</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Stage:</string>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="mixtimeSpin">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>100</y>
+         <width>69</width>
+         <height>27</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="heattimeLabel">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>130</y>
+         <width>171</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Heating Duration (s):</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="fluidamntLabel">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>151</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Fluid Amount (mL):</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="fluidnameEdit">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>171</width>
+         <height>27</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="spinBox">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>50</y>
+         <width>48</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>5</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="fluidnameLabel">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Enter Fluid Name:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="tempLabel">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>171</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Beaker Temperature (C):</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="tempSpin">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>71</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="maximum">
+        <number>300</number>
+       </property>
+      </widget>
+      <zorder>deleteButton</zorder>
+      <zorder>fluidamntSpin</zorder>
+      <zorder>heattimeSpin</zorder>
+      <zorder>label</zorder>
+      <zorder>stageLabel</zorder>
+      <zorder>mixtimeSpin</zorder>
+      <zorder>heattimeLabel</zorder>
+      <zorder>fluidamntLabel</zorder>
+      <zorder>fluidnameEdit</zorder>
+      <zorder>spinBox</zorder>
+      <zorder>fluidnameLabel</zorder>
+      <zorder>tempLabel</zorder>
+      <zorder>tempSpin</zorder>
+      <zorder>deleteButton</zorder>
+      <zorder>label</zorder>
+      <zorder>heattimeSpin</zorder>
+      <zorder>fluidamntSpin</zorder>
+      <zorder>stageLabel</zorder>
+      <zorder>mixtimeSpin</zorder>
+      <zorder>heattimeLabel</zorder>
+      <zorder>fluidamntLabel</zorder>
+      <zorder>fluidnameEdit</zorder>
+      <zorder>spinBox</zorder>
+      <zorder>fluidnameLabel</zorder>
+      <zorder>tempLabel</zorder>
+      <zorder>tempSpin</zorder>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

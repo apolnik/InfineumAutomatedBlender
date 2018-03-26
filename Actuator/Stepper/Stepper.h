@@ -18,8 +18,8 @@ public:
 	Proximity disSensor;
 	int inUse;
 	static Stepper* stepper_motor;
-
-	Stepper();
+	int id_;
+	Stepper(int id=LINRAIL);
 	~Stepper();
 	int getPosition(double* ret_val);
 	int controlPosition(double distance, double rpm);

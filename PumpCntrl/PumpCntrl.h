@@ -1,7 +1,7 @@
 #ifndef PumpCntrl_H
 #define PumpCntrl_H
  
-
+#include "Stepper.h"
 
 #include "DC_Motor.h"
 class PumpCntrl{
@@ -10,10 +10,14 @@ class PumpCntrl{
 	int dir;
 	int dir_pin;
 	DC_Motor* pump;
-	PumpCntrl(int pumpid_,int pump_dir);
+	Stepper* syringe;
+
+	PumpCntrl(int pumpid_,int pump_dir, int syringeID = SYRINGE1);
 	~PumpCntrl();
 	int deactivatePump();	
 	int activatePump();
 	int changeDir(int dir_);
+	int fillsyringePump(double microL);
+	int dispenseSyringePump(double microL);
 }; 
 #endif /* PumpCntrl_H */
