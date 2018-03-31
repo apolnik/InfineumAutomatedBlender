@@ -80,9 +80,23 @@ int DC_Motor::toggleState(){//toggles whether the motor is on or off.
 	#if ARDUINO
 		int fd = openArduino();
 		if(on_off == OFF)
-			sendArduino("m1",fd);
+			{
+				sendArduino("m1",file);
+				for(int i =0; i<100; i++){
+					sendArduino("mu",file);
+					usleep(100000);
+				}
+				
+
+			}
 		else
-			sendArduino("m0",fd);
+			{
+				for(int i =0; i<100; i++){
+					sendArduino("md",file);
+					usleep(100000);
+				}
+				sendArduino("m0",file);
+			}
 		closeArduino(fd);
 	#else
 		if(on_off == OFF)

@@ -9,7 +9,7 @@ class DC_Motor{
 	public:
 	bool stirrer;
 	int position;
-	char pwm_pin;
+	char* pwm_pin;
 	double speed;
 	double torque;
 	double power;

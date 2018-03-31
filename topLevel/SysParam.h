@@ -39,12 +39,14 @@
 #define HEATPAD4_PIN	21
 //Pump Pins
 
-#define PERISTALLTIC120 27
+#define PERISTALLTIC120 20
+#define PERISTALLTIC120_2 27
+#define PERISTALLTIC120_3 0
 #define DIAPHRAGM_PUMP 44
 #define PERISTALLTIC12 ""
 
 
-#define PERI12_DIR 4
+#define PERI12_DIR 68
 #define DIA_DIR 5
 
 //Stepper Motor Parameters
@@ -127,3 +129,7 @@
 #define SYRINGE4_DIR		0
 #define SYRINGE5_STEP		0
 #define SYRINGE5_DIR		0
+
+#define PUMP_QUANTA		1000000	//1sec
+#define SETTLING_TIME	50000	//50msec
+#define LOAD_CELL_CONV	1000

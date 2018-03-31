@@ -23,7 +23,8 @@ public:
 	~StageCntrl();
 	int startThreads();
 	int executeBatch();
-	void* heatThread(int batchnum)
+	void* heatThread(int batchnum);
+	void* DC_mixCntrl();
 };
 
 

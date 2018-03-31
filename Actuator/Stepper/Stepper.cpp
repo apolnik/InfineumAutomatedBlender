@@ -117,6 +117,7 @@ int Stepper::controlPosition(double distance, double rpm){
 		return -1;
 	if(setMode(FULLSTEP)==-1)
 		return -1;
+	int count=50;
 	while(abs(distance-measDis)>eps){
 		if(measDis<5*MIN_STEP_DIS)
 			if(setMode(EIGHTSTEP)==-1)
@@ -132,9 +133,9 @@ int Stepper::controlPosition(double distance, double rpm){
 		setPin(STEPPER_DIR_PIN,direction);
 
 		setPin(STEPPER_STEP_PIN,0);
-                setPin(STEPPER_STEP_PIN,1);
-                usleep(1000);
-
+        setPin(STEPPER_STEP_PIN,1);
+        usleep(waitdelay*count);
+        if(count>1)count--;
 		if(getPosition(&measDis)==-1)
 			return -1;
 

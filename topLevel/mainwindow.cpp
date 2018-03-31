@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     b = new BatchDialog(this,d1,d2,d3,d4);
 
 
-
+    logs = new Logger();
 
         OSTickInitialize();
     RTOSTmrInit();
@@ -244,6 +244,7 @@ void MainWindow::on_actionOpen_triggered()
 
 }
 void MainWindow::updateDisplays(){
+    logs->updateLogs();
     int index = beakers_tabwid->currentIndex();
     if(index==0){
         //Beaker 1

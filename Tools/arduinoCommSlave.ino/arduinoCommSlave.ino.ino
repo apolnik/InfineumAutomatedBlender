@@ -1,4 +1,7 @@
   #include "HX711.h"
+  #include "Adafruit_MAX31855.h"
+  #include <SPI.h>
+
   int motorPWM_pin;
   int miniPeriPump1;
   int miniPeriPump2;
@@ -28,7 +31,7 @@ void setup() {
    miniPeriPump1 = 2;
    miniPeriPump2 = 3;
 
-   DEFAULTPWM = 100;
+   DEFAULTPWM = 10;
    dcMotorPWM = DEFAULTPWM;
    miniPeri1PWM = DEFAULTPWM;
    miniPeri2PWM = DEFAULTPWM;
@@ -145,13 +148,18 @@ void loop() {
     else if(c == 'd'){
       //collect and relay all sensors connected to arduino
       //Load Cell Readings
-      Serial.print(scale1.read_average(20));
-      Serial.print(scale2.read_average(20));
-      Serial.print(scale3.read_average(20));
-      Serial.print(scale4.read_average(20));
-
-
-
+      long reading1 = (scale1.read_average(20));
+      long reading2 = (scale2.read_average(20));
+      long reading3 = (scale3.read_average(20));
+      long reading4 = 0;//(scale4.read_average(20));
+      Serial.print(reading1);
+      Serial.print('b');
+      Serial.print(reading2);
+      Serial.print('b');
+      Serial.print(reading3);
+      Serial.print('b');
+      Serial.print(reading4);
+      Serial.print('b');
       //Temperature Probe Readings 
 
 
