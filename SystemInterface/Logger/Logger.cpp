@@ -111,7 +111,7 @@ void Logger::removeNode(LogNode* n){
 		head = n->next;
 
 	}
-	delete n->t;
+	delete n;//->t;
 
 }
 

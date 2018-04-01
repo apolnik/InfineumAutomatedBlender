@@ -2,7 +2,7 @@
 #define LINRAIL			0
 #define STEPPER_MS1_PIN 0
 #define STEPPER_MS2_PIN 0
-#define STEPPER_STEP_PIN 0
+#define STEPPER_STEP_PIN 26
 #define STEPPER_SLP_PIN 45
 #define STEPPER_DIR_PIN 46
 
@@ -33,10 +33,10 @@
 #define CTEMP2_PIN 15
 #define CTEMP3_PIN 16
 #define CTEMP4_PIN 17
-#define HEATPAD1_PIN	47
-#define HEATPAD2_PIN	19
-#define HEATPAD3_PIN	20
-#define HEATPAD4_PIN	21
+#define HEATPAD1_PIN	115
+#define HEATPAD2_PIN	112
+#define HEATPAD3_PIN	61
+#define HEATPAD4_PIN	47
 //Pump Pins
 
 #define PERISTALLTIC120 20
@@ -45,7 +45,8 @@
 #define DIAPHRAGM_PUMP 44
 #define PERISTALLTIC12 ""
 
-
+#define PERI_PWM1  0
+#define PERI_PWM2  1
 #define PERI12_DIR 68
 #define DIA_DIR 5
 

@@ -4,7 +4,11 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <errno.h>
-
+#include "arduinoComm.h"
+#include "ValveCntrl.h"
+#include "PumpCntrl.h"
+#include "DC_Motor.h"
+#include "HeatCntrl.h"
 pthread_mutex_t fluid_tran;
 pthread_mutex_t barrier;
 
@@ -15,6 +19,25 @@ StageCntrl::StageCntrl(bparam_t* batches, int numBatches){
 }
 int stage;
 int max_numStages;
+typedef struct heatParam{
+	StageCntrl* ptr;
+	int batchnum;
+}heatParam_t;
+void* DC_Thread_Helper(void* arg){
+	
+	StageCntrl * ptr = (StageCntrl*) arg;
+	ptr->DC_mixCntrl(NULL);
+
+}
+void* heat_Thread_Helper(void* arg){
+	
+	heatParam_t* carg = (heatParam_t*)arg;
+	StageCntrl * ptr = (StageCntrl*) (carg->ptr);
+	int batchnum = (int)( carg->batchnum);
+	ptr->heatThread((void*)(&batchnum));
+
+
+}
 int StageCntrl::startThreads(){
 	pthread_t batches[num_batches];
 	int batch_index[num_batches+1];
@@ -22,15 +45,18 @@ int StageCntrl::startThreads(){
 
 	for(int i = 0; i<num_batches; i++){
 		batch_index[i]=i;
-		pthread_create(&batches[i],NULL,heatThread,&batch_index[i]);
+		heatParam_t* threadParam;
+		threadParam->ptr = this;
+		threadParam->batchnum = i;
+		pthread_create(&batches[i],NULL,heat_Thread_Helper,threadParam);
 	}
-	pthread_create(&mix_thread,NULL, DC_mixCntrl,NULL);
+	pthread_create(&mix_thread,NULL, DC_Thread_Helper,this);
 	for(int i = 0; i<num_batches; i++){
 
-		pthread_join(&batches[i],NULL);
+		pthread_join(batches[i],NULL);
 
 	}
-	pthread_join(&mix_thread,NULL);
+	pthread_join(mix_thread,NULL);
 
 }
 StageCntrl::~StageCntrl(){
@@ -40,7 +66,8 @@ StageCntrl::~StageCntrl(){
 //The purpose of using threads here is that there
 //are some aspects of control that need to be done concurrently.
 //...mainly heat control. The other stuff is done sequentially
-void* StageCntrl::DC_mixCntrl(){
+void* StageCntrl::DC_mixCntrl(void*){
+	int batchnum =0;
 	int file = openArduino();
 	sendArduino("m1",file);
 	for(int i =0; i<100; i++){
@@ -112,15 +139,15 @@ long readWeight(){
 
 }
 int StageCntrl::executeBatch(){
-	int stagecnt = c_batches[0]->numStages;
+	int stagecnt = (c_batches[0]).numStages;
 	int i = 0;
 	ValveCntrl valve1(VALVE_1);
 	ValveCntrl valve2(VALVE_2);
 	ValveCntrl valve3(VALVE_3);
 	ValveCntrl valve4(VALVE_4);
 	ValveCntrl valve5(VALVE_5);
-	PumpCntrl pump1(,PERI12_DIR,SYRINGE1);
-	PumpCntrl pump2(,PERI12_DIR,SYRINGE2);
+	PumpCntrl pump1(PERI_PWM1,PERI12_DIR,SYRINGE1);
+	PumpCntrl pump2(PERI_PWM2,PERI12_DIR,SYRINGE2);
 	PumpCntrl pump3(PERISTALLTIC120,0,SYRINGE3);
 	PumpCntrl pump4(PERISTALLTIC120_2,0,SYRINGE4);
 	PumpCntrl pump5(PERISTALLTIC120_3,0,SYRINGE5);
@@ -219,7 +246,8 @@ int StageCntrl::executeBatch(){
 		//Done with stage
 	}
 }
-void* StageCntrl::heatThread(int batchnum){
+void* StageCntrl::heatThread(void* args){
+	int batchnum = *((int*)args);
 	//We use "stage" to determine what stage we are at
 	int duration=0;
 	double targetTemp=0;

@@ -1,6 +1,7 @@
 #include "CurrentSen.h"
 #include "i2cTool.h"
 #include "SysParam.h"
+CurrentSen* CurrentSen::stirrer_sen=NULL;
 void setCalibration_16V_400mA();
 CurrentSen::CurrentSen(int id){
 	currentID = id;

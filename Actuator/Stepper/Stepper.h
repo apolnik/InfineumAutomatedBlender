@@ -25,7 +25,7 @@ public:
 	int controlPosition(double distance, double rpm);
 	int returnToStartPos();
 
-	static void step(void *direction);
+	void step(void *direction);
 	int setMode(int mode);
 }; 
 #endif /* Stepper_H */

@@ -5,6 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "sys/wait.h"
+#include <sys/time.h>
+#include "tempMeasurement.h"
+#include "TypeDefines.h"
+#include "TimerMgrHeader.h"
+#include "TimerAPI.h"
 //Make sure to make a new p_thread when using the heater otherwise
 //you will probably block all the other stuff you need to do.
 //make sure to kill the p_thread when done with it.

@@ -1,7 +1,9 @@
 #include "DC_Motor.h"
+#include "unistd.h"
 #include "SysParam.h"
 #include "gpioTool.h"
 #include "pwm.h"
+#include "arduinoComm.h"
 #define ARDUINO 1
 DC_Motor::DC_Motor(int motorID){
 	position = motorID;
@@ -81,9 +83,9 @@ int DC_Motor::toggleState(){//toggles whether the motor is on or off.
 		int fd = openArduino();
 		if(on_off == OFF)
 			{
-				sendArduino("m1",file);
+				sendArduino("m1",fd);
 				for(int i =0; i<100; i++){
-					sendArduino("mu",file);
+					sendArduino("mu",fd);
 					usleep(100000);
 				}
 				
@@ -92,10 +94,10 @@ int DC_Motor::toggleState(){//toggles whether the motor is on or off.
 		else
 			{
 				for(int i =0; i<100; i++){
-					sendArduino("md",file);
+					sendArduino("md",fd);
 					usleep(100000);
 				}
-				sendArduino("m0",file);
+				sendArduino("m0",fd);
 			}
 		closeArduino(fd);
 	#else

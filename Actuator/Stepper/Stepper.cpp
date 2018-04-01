@@ -108,8 +108,8 @@ int Stepper::controlPosition(double distance, double rpm){
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Timer1"};
 	int direction = FORWARD;
-	RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
-										step,&direction,timer_name[0],&err_val);
+	//RTOS_TMR *timer_obj1 = RTOSTmrCreate(0,waitdelay,RTOS_TMR_PERIODIC,
+	//									step,&direction,timer_name[0],&err_val);
 	//RTOSTmrStart(timer_obj1, &err_val);
 	double eps = MIN_STEP_DIS;
 	double measDis;

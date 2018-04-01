@@ -1,7 +1,7 @@
 #ifndef STAGEWIDGET_H
 #define STAGEWIDGET_H
 
-#include <QWidget>
+#include <QtGui/QWidget>
 #include <QtGui/QListWidget>
 
 namespace Ui {

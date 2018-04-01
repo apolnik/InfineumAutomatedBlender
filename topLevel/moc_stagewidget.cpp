@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../ConsoleTest/stagewidget.h"
+#include "../include/stagewidget.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'stagewidget.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63

@@ -5,17 +5,17 @@ typedef struct logs{
 		double mix1_logs;
 		double hot1_logs;
 
-		double weight1_logs;
-		double mix1_logs;
-		double hot1_logs;
+		double weight2_logs;
+		double mix2_logs;
+		double hot2_logs;
 	
-		double weight1_logs;
-		double mix1_logs;
-		double hot1_logs;
+		double weight3_logs;
+		double mix3_logs;
+		double hot3_logs;
 
-		double weight1_logs;
-		double mix1_logs;
-		double hot1_logs;
+		double weight4_logs;
+		double mix4_logs;
+		double hot4_logs;
 
 		int time;
 
@@ -27,7 +27,7 @@ class Logger{
 	public:
 		LogNode* next;
 		LogNode* prev;
-		logs_t* logs_n
+		logs_t* logs_n;
 		LogNode(logs_t* logs_n, LogNode* prev, LogNode* next) 
 				: logs_n(logs_n), prev(prev), next(next)
 		{
@@ -46,7 +46,7 @@ class Logger{
 	int displayLogs();
 	int saveLogs();
 	void remove1000xLogs();
-
+	void updateLogs();
 };
  
 #endif /* Logger_H */

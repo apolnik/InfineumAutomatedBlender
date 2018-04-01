@@ -1,7 +1,7 @@
 #ifndef BATCHDIALOG_H
 #define BATCHDIALOG_H
 
-#include <QDialog>
+#include <QtGui/QDialog>
 #include "dialog.h"
 namespace Ui {
 class BatchDialog;

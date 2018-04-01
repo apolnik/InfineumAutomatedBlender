@@ -348,7 +348,9 @@ INT8U Create_Timer_Pool(INT32U timer_count)
 	// You can imagine of LinkedList Creation for Timer Obj
 	FreeTmrCount = timer_count;
 	FreeTmrListPtr =  (RTOS_TMR *)malloc(timer_count * sizeof(RTOS_TMR));
-	for(int i=0; i<timer_count; i++){
+	
+	int i=0;
+	for(i=0; i<timer_count; i++){
 		if(i<timer_count-1)
 			FreeTmrListPtr[i].RTOSTmrNext = &FreeTmrListPtr[i+1];
 		else
@@ -373,7 +375,8 @@ INT8U Create_Timer_Pool(INT32U timer_count)
 void init_hash_table(void)
 {
 	//hash_table should be empty more or less
-	for(int i=0; i< HASH_TABLE_SIZE; i++){
+	int i=0;
+	for(i=0; i< HASH_TABLE_SIZE; i++){
 		hash_table[i].timer_count=0;
 		hash_table[i].list_ptr = NULL;
 		

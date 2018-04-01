@@ -6,7 +6,6 @@
 #include "TypeDefines.h"
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
-
 #include "gpioTool.h"
 #include "tempMeasurement.h"
 #include "unistd.h"
@@ -69,44 +68,44 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->grph_hot4->setScene(scene_hot4);
 
 
-    vector_weight1_pnt = new QVector<QPoint>;
-    vector_mix1_pnt = new QVector<QPoint>;
-    vector_hot1_pnt = new QVector<QPoint>;
+    vector_weight1_pnt = new QVector<QPoint>();
+    vector_mix1_pnt = new QVector<QPoint>();
+    vector_hot1_pnt = new QVector<QPoint>();
 
 
-    vector_weight2_pnt = new QVector<QPoint>;
-    vector_mix2_pnt = new QVector<QPoint>;
-    vector_hot2_pnt = new QVector<QPoint>;
+    vector_weight2_pnt = new QVector<QPoint>();
+    vector_mix2_pnt = new QVector<QPoint>();
+    vector_hot2_pnt = new QVector<QPoint>();
 
 
-    vector_weight3_pnt = new QVector<QPoint>;
-    vector_mix3_pnt = new QVector<QPoint>;
-    vector_hot3_pnt = new QVector<QPoint>;
+    vector_weight3_pnt = new QVector<QPoint>();
+    vector_mix3_pnt = new QVector<QPoint>();
+    vector_hot3_pnt = new QVector<QPoint>();
 
 
-    vector_weight4_pnt = new QVector<QPoint>;
-    vector_mix4_pnt = new QVector<QPoint>;
-    vector_hot4_pnt = new QVector<QPoint>;
+    vector_weight4_pnt = new QVector<QPoint>();
+    vector_mix4_pnt = new QVector<QPoint>();
+    vector_hot4_pnt = new QVector<QPoint>();
 
 
-    vector_weight1_lines = new QVector<QGraphicsLineItem*>;
-    vector_mix1_lines = new QVector<QGraphicsLineItem*>;
-    vector_hot1_lines = new QVector<QGraphicsLineItem*>;
+    vector_weight1_lines = new QVector<QGraphicsLineItem*>();
+    vector_mix1_lines = new QVector<QGraphicsLineItem*>();
+    vector_hot1_lines = new QVector<QGraphicsLineItem*>();
 
 
-    vector_weight2_lines = new QVector<QGraphicsLineItem*>;
-    vector_mix2_lines = new QVector<QGraphicsLineItem*>;
-    vector_hot2_lines = new QVector<QGraphicsLineItem*>;
+    vector_weight2_lines = new QVector<QGraphicsLineItem*>();
+    vector_mix2_lines = new QVector<QGraphicsLineItem*>();
+    vector_hot2_lines = new QVector<QGraphicsLineItem*>();
 
 
-    vector_weight3_lines = new QVector<QGraphicsLineItem*>;
-    vector_mix3_lines = new QVector<QGraphicsLineItem*>;
-    vector_hot3_lines = new QVector<QGraphicsLineItem*>;
+    vector_weight3_lines = new QVector<QGraphicsLineItem*>();
+    vector_mix3_lines = new QVector<QGraphicsLineItem*>();
+    vector_hot3_lines = new QVector<QGraphicsLineItem*>();
 
 
-    vector_weight4_lines = new QVector<QGraphicsLineItem*>;
-    vector_mix4_lines = new QVector<QGraphicsLineItem*>;
-    vector_hot4_lines = new QVector<QGraphicsLineItem*>;
+    vector_weight4_lines = new QVector<QGraphicsLineItem*>();
+    vector_mix4_lines = new QVector<QGraphicsLineItem*>();
+    vector_hot4_lines = new QVector<QGraphicsLineItem*>();
 
     timer = new QTimer(this);
     timer->start(10);
@@ -245,10 +244,10 @@ void MainWindow::on_actionOpen_triggered()
 }
 void MainWindow::updateDisplays(){
     logs->updateLogs();
-    int index = beakers_tabwid->currentIndex();
+    int index =ui->beakers_tabwid->currentIndex();
     if(index==0){
         //Beaker 1
-        int index_sub = subtabs1->currentIndex();
+        int index_sub = ui->subtabs1->currentIndex();
         if(index_sub==0){
             //Update Beaker 1 - Weight Graph
             QGraphicsView *weight1 = ui->grph_weight1;
@@ -285,7 +284,7 @@ void MainWindow::updateDisplays(){
     }
     if(index==1){
         //Beaker 2
-        int index_sub = subtabs2->currentIndex();
+        int index_sub = ui->subtabs2->currentIndex();
         if(index_sub==0){
             //Update Beaker 2 - Weight Graph    
             QGraphicsView *weight2 = ui->grph_weight2;
@@ -322,7 +321,7 @@ void MainWindow::updateDisplays(){
     }
     if(index==2){
         //Beaker 3
-        int index_sub = subtabs3->currentIndex();
+        int index_sub = ui->subtabs3->currentIndex();
         if(index_sub==0){
             //Update Beaker 3 - Weight Graph
             QGraphicsView *weight3 = ui->grph_weight3;
@@ -365,7 +364,7 @@ void MainWindow::updateDisplays(){
     }
     if(index==3){
         //Beaker 4
-        int index_sub = subtabs4->currentIndex();
+        int index_sub = ui->subtabs4->currentIndex();
         if(index_sub==0){
             //Update Beaker 4 - Weight Graph
 

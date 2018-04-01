@@ -1,5 +1,8 @@
 #include "tempMeasurement.h"
-
+tempMeasurement* tempMeasurement::tmp1=NULL;
+tempMeasurement* tempMeasurement::tmp2=NULL;
+tempMeasurement* tempMeasurement::tmp3=NULL;
+tempMeasurement* tempMeasurement::tmp4=NULL;
 tempMeasurement::tempMeasurement(int sensor){
 	tempsensorID=sensor;
 	data = new double[5];

@@ -2,8 +2,8 @@
 #include "ui_dialog.h"
 #include "stagewidget.h"
 #include "mainwindow.h"
-#include "QString"
-#include "QTextStream"
+#include "QtCore/QString"
+#include "QtCore/QTextStream"
 Dialog::Dialog(QWidget *parent,QTreeWidget* tw, int batch, batch_t* b_) :
     QDialog(parent),
     ui(new Ui::Dialog)

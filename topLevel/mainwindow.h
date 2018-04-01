@@ -1,12 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QtGui/QMainWindow>
 #include "dialog.h"
 #include "batchdialog.h"
-#include <QVector>
-#include <QPoint>
-#include <QGraphicsLineItem>
+#include <QtCore/QVector>
+#include <QtCore/QPoint>
+#include <QtGui/QGraphicsLineItem>
+#include "Logger.h"
+#include "QtCore/QTimer"
+
 namespace Ui {
 class MainWindow;
 }
@@ -50,44 +53,44 @@ public:
     QGraphicsScene *scene_hot4;
 
 
-    QVector *vector_weight1_pnt;
-    QVector *vector_mix1_pnt;
-    QVector *vector_hot1_pnt;
+    QVector<QPoint> *vector_weight1_pnt;
+    QVector<QPoint> *vector_mix1_pnt;
+    QVector<QPoint> *vector_hot1_pnt;
 
 
-    QVector *vector_weight2_pnt;
-    QVector *vector_mix2_pnt;
-    QVector *vector_hot2_pnt;
+    QVector<QPoint> *vector_weight2_pnt;
+    QVector<QPoint> *vector_mix2_pnt;
+    QVector<QPoint> *vector_hot2_pnt;
 
 
-    QVector *vector_weight3_pnt;
-    QVector *vector_mix3_pnt;
-    QVector *vector_hot3_pnt;
+    QVector<QPoint> *vector_weight3_pnt;
+    QVector<QPoint> *vector_mix3_pnt;
+    QVector<QPoint> *vector_hot3_pnt;
 
 
-    QVector *vector_weight4_pnt;
-    QVector *vector_mix4_pnt;
-    QVector *vector_hot4_pnt;
+    QVector<QPoint> *vector_weight4_pnt;
+    QVector<QPoint> *vector_mix4_pnt;
+    QVector<QPoint> *vector_hot4_pnt;
 
 
-    QVector *vector_weight1_lines;
-    QVector *vector_mix1_lines;
-    QVector *vector_hot1_lines;
+    QVector<QGraphicsLineItem*> *vector_weight1_lines;
+    QVector<QGraphicsLineItem*> *vector_mix1_lines;
+    QVector<QGraphicsLineItem*> *vector_hot1_lines;
 
 
-    QVector *vector_weight2_lines;
-    QVector *vector_mix2_lines;
-    QVector *vector_hot2_lines;
+    QVector<QGraphicsLineItem*> *vector_weight2_lines;
+    QVector<QGraphicsLineItem*> *vector_mix2_lines;
+    QVector<QGraphicsLineItem*> *vector_hot2_lines;
 
 
-    QVector *vector_weight3_lines;
-    QVector *vector_mix3_lines;
-    QVector *vector_hot3_lines;
+    QVector<QGraphicsLineItem*> *vector_weight3_lines;
+    QVector<QGraphicsLineItem*> *vector_mix3_lines;
+    QVector<QGraphicsLineItem*> *vector_hot3_lines;
 
 
-    QVector *vector_weight4_lines;
-    QVector *vector_mix4_lines;
-    QVector *vector_hot4_lines;    
+    QVector<QGraphicsLineItem*> *vector_weight4_lines;
+    QVector<QGraphicsLineItem*> *vector_mix4_lines;
+    QVector<QGraphicsLineItem*> *vector_hot4_lines;    
 
 private slots:
 

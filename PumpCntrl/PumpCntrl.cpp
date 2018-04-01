@@ -1,10 +1,12 @@
 #include "PumpCntrl.h"
 #include "SysParam.h"
-PumpCntrl::PumpCntrl(int pumpid_,int pump_dir, int syringeID = SYRINGE1){
+#include <sys/time.h>
+#include "unistd.h"
+PumpCntrl::PumpCntrl(int pumpid_,int pump_dir, int syringeID){
 	
 	pumpID = pumpid_;
 	dir_pin = pump_dir;
-	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpid != PERISTALLTIC120_3){
+	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpID != PERISTALLTIC120_3){
 		pump = new DC_Motor(pumpID);
 		dir =0;	
 		exportPin(pumpID);
@@ -25,30 +27,30 @@ PumpCntrl::~PumpCntrl(){
 	delete syringe;
 }
 int PumpCntrl::activatePump(){
-	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpid != PERISTALLTIC120_3){
+	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpID != PERISTALLTIC120_3){
 		if(pump->on_off == OFF)
 			pump->toggleState();
 	}
 	else{
-		setPin(pumpid, 1);
+		setPin(pumpID, 1);
 	}
 	return 0;
 
 }
 int PumpCntrl::deactivatePump(){
 	
-	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpid != PERISTALLTIC120_3){
+	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpID != PERISTALLTIC120_3){
 		if(pump->on_off == ON)
 			pump->toggleState();
 	}
 	else{
-		setPin(pumpid,0);
+		setPin(pumpID,0);
 	}
 	return 0;
 
 }
 int PumpCntrl::changeDir(int dir_){
-	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpid != PERISTALLTIC120_3){
+	if(pumpID != PERISTALLTIC120 && pumpID != PERISTALLTIC120_2 && pumpID != PERISTALLTIC120_3){
 		dir = dir_;
 		setPin(dir_pin, dir);
 	}
@@ -59,7 +61,7 @@ int PumpCntrl::fillsyringePump(double microL){
 	
 	for(int i = 0; i < (int)(microL*100); i++){
 		for(int j =0; j < STEPS_1uL; j++){
-			syringe->step(&retract_dir)
+			syringe->step(&retract_dir);
 			if(i==0 && j < STEPS_1uL/2){
 				usleep(1000*(STEPS_1uL/2)-j);
 			}
@@ -107,7 +109,7 @@ int PumpCntrl::dispenseSyringePump(double microL){
 	int dispense_dir = 1;
 	for(int i = 0; i < (int)(microL*100); i++){
 		for(int j =0; j < STEPS_1uL; j++){
-			syringe->step(&dispense_dir)
+			syringe->step(&dispense_dir);
 			if(i==0 && j < STEPS_1uL/2){
 				usleep(1000*(STEPS_1uL/2)-j);
 			}
