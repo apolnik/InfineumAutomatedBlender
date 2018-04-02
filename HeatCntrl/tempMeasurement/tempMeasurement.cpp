@@ -13,15 +13,41 @@ tempMeasurement::tempMeasurement(int sensor){
 
 
 double tempMeasurement::measureHeat(){
-
+	i2cTool Sensor;
 	char buf[256];
 	char sensorAddr;
 	if(tempsensorID == IRTEMP1_PIN || tempsensorID == IRTEMP2_PIN || 
-		tempsensorID == IRTEMP3_PIN ||tempsensorID == IRTEMP4_PIN)
+		tempsensorID == IRTEMP3_PIN ||tempsensorID == IRTEMP4_PIN){
 		sensorAddr = IR_TEMP_DEV_ADDR;
+		Sensor.setAddress(I2C_MULTI_ADDR);
+		switch(tempsensorID){
+			char g[16]; 
+			g[0]=1;
+			g[1]=0;
+			case IRTEMP1_PIN:
+				write(Sensor.i2cFile,&g,2);
+				break;
+			case IRTEMP2_PIN:
+				g[0]=2;
+				write(Sensor.i2cFile,&g,2);
+				break;
+			case IRTEMP3_PIN:
+				g[0]=4;
+				write(Sensor.i2cFile,&g,2);
+				break;
+			case IRTEMP4_PIN:
+				g[0]=8;
+				write(Sensor.i2cFile,&g,2);
+				break;
+			default:
+				break;
+
+		}
+
+	}
 	else
 		sensorAddr = C_TEMP_DEV_ADDR;
-	i2cTool Sensor;
+	
 	int result=0;
 	char regAddr = IR_TEMP_OBJ_1;
 	if(sensorAddr == C_TEMP_DEV_ADDR){

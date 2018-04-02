@@ -5,7 +5,7 @@
 #include <string.h>
 int openArduino(){
 	int file;
-	if ((file = open("/dev/ttyO4", O_RDWR | O_NOCTTY | O_NDELAY))<0){
+	if ((file = open("/dev/tty2", O_RDWR | O_NOCTTY | O_NDELAY))<0){
       perror("UART: Failed to open the file.\n");
       return -1;
    }

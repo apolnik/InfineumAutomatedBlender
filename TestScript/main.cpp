@@ -18,6 +18,7 @@
 #include "CurrentSen.h"
 #include "ValveCntrl.h"
 #include "PumpCntrl.h"
+#include "arduinoComm.h"
 using namespace std;
 
 
@@ -35,8 +36,17 @@ int main(int argc, char *argv[]){
        		RTOSTmrInit();
 		//weightMeasurement w(LOAD_CELL1_PIN);
 		Stepper *s = new Stepper(LINRAIL);
+		Stepper *syringe1 = new Stepper(SYRINGE1);
 		int direction = BACKWARD;
 		s->setMode(FULLSTEP);
+		int file = openArduino();
+		sendArduino("m1",file);
+		for(int i =0; i<100; i++){
+			sendArduino("mu",file);
+			usleep(100000);
+		}
+		closeArduino(file);
+		
 		HeatCntrl* h = new HeatCntrl(HEATPAD1_PIN);
 		printf("Heat Cntrl Setup\n");
 		//h->setDesiredTemp(100,100000);
@@ -73,16 +83,29 @@ int main(int argc, char *argv[]){
 
     		}
     		else if(decision[0]=='s'){
-			while(1){
+			for(int index1 =0; index1<50000; index1++){
 				//s->step(&direction);
 			//	valve1.moveValve(BEAKER1_POS);
-				setPin(STEPPER_DIR_PIN,1);
-				setPin(STEPPER_STEP_PIN,0);
-		                setPin(STEPPER_STEP_PIN,1);
+				setPin(46,1);
+				setPin(SYRINGE1,0);
+		                setPin(SYRINGE1,1);
 
-				usleep(1000);
+				usleep(10000);
 			}
     		}
+		else if(decision[0]=='0'){
+			for(int index1 =0; index1<50000; index1++){
+                                //s->step(&direction);
+                        //      valve1.moveValve(BEAKER1_POS);
+                                setPin(46,0);
+                                setPin(SYRINGE1,0);
+                                setPin(SYRINGE1,1);
+
+                                usleep(10000);
+                        }
+
+
+		}
     		else if(decision[0]=='v'){
 			valve1.openValve();    		
 			valve2.openValve();
@@ -117,6 +140,16 @@ int main(int argc, char *argv[]){
 			int iDistance = tofReadDistance();
 			if (iDistance < 4096) // valid range?
 				printf("Distance = %dmm\n", iDistance);
+
+		}
+		else if(decision[0]=='q'){
+			valve1.moveValve(BEAKER1_POS);
+
+		}
+		else if(decision[0]=='4'){
+
+			printf("%.2f",h->IRtempSensor->measureHeat());
+
 
 		}
 		

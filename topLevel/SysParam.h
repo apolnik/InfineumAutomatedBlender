@@ -4,7 +4,8 @@
 #define STEPPER_MS2_PIN 0
 #define STEPPER_STEP_PIN 26
 #define STEPPER_SLP_PIN 45
-#define STEPPER_DIR_PIN 46
+#define STEPPER_DIR_PIN 44
+#define SYRINGE_DIR_PIN 46
 
 #define DCMOT1_DIR_PIN 6
 #define DCMOT2_DIR_PIN 7
@@ -23,6 +24,8 @@
 #define LOAD_CELL2_CLK 2
 #define LOAD_CELL3_CLK 3
 #define LOAD_CELL4_CLK 4
+
+#define I2C_MULTI_ADDR	0x70
 
 
 #define IRTEMP1_PIN 10
@@ -55,10 +58,11 @@
 #define BASE_SPEED 60//rpm
 #define START_POS 0//inches
 #define BAR_LENGTH 13//inches
-#define BEAKER1_POS	0
-#define BEAKER2_POS	8
-#define	BEAKER3_POS	18
-#define BEAKER4_POS	24
+#define BEAKER1_POS	8
+#define BEAKER2_POS	18
+#define	BEAKER3_POS	24
+#define BEAKER4_POS	30
+
 #define GARBAGE		24
 
 //DC Motor Parameters
@@ -114,22 +118,22 @@
 #define S5_refill_1uL	100000 	//num microseconds needed to refill 1 uL = tested value
 
 //We can share DIR pins if necessary...
-#define SYRINGE1 			0
+#define SYRINGE1 			69
 #define SYRINGE2 			0
 #define SYRINGE3 			0
 #define SYRINGE4 			0
 #define SYRINGE5 			0
 
-#define SYRINGE1_STEP		0
-#define SYRINGE1_DIR		0
+#define SYRINGE1_STEP		69
+#define SYRINGE1_DIR		46
 #define SYRINGE2_STEP		0
-#define SYRINGE2_DIR		0
+#define SYRINGE2_DIR		46
 #define SYRINGE3_STEP		0
-#define SYRINGE3_DIR		0
+#define SYRINGE3_DIR		46
 #define SYRINGE4_STEP		0
-#define SYRINGE4_DIR		0
+#define SYRINGE4_DIR		46	
 #define SYRINGE5_STEP		0
-#define SYRINGE5_DIR		0
+#define SYRINGE5_DIR		46
 
 #define PUMP_QUANTA		1000000	//1sec
 #define SETTLING_TIME	50000	//50msec

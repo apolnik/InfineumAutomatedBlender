@@ -104,7 +104,7 @@ int Stepper::controlPosition(double distance, double rpm){
 	int model;int revision;
         tofGetModel(&model,&revision);
 
-	int waitdelay = 1000;//(int)((60/rpm)/STEPSPERREV)*1000*1000;
+	int waitdelay = 100000;//(int)((60/rpm)/STEPSPERREV)*1000*1000;
 	INT8U err_val;
 	INT8 *timer_name[1] = {"Timer1"};
 	int direction = FORWARD;
@@ -134,7 +134,7 @@ int Stepper::controlPosition(double distance, double rpm){
 
 		setPin(STEPPER_STEP_PIN,0);
         setPin(STEPPER_STEP_PIN,1);
-        usleep(waitdelay*count);
+        usleep(waitdelay);
         if(count>1)count--;
 		if(getPosition(&measDis)==-1)
 			return -1;
