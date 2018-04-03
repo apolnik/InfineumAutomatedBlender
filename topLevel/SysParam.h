@@ -58,9 +58,9 @@
 #define BASE_SPEED 60//rpm
 #define START_POS 0//inches
 #define BAR_LENGTH 13//inches
-#define BEAKER1_POS	8
-#define BEAKER2_POS	18
-#define	BEAKER3_POS	24
+#define BEAKER1_POS	5
+#define BEAKER2_POS	10
+#define	BEAKER3_POS	18
 #define BEAKER4_POS	30
 
 #define GARBAGE		24

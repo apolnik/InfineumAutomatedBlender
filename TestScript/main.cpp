@@ -7,7 +7,7 @@
 #include "TimerMgrHeader.h"
 #include "TimerAPI.h"
 #if GUI
-	#include <QApplication>
+	#include <QtCore/QApplication>
 	#include "mainwindow.h"
 #endif
 #include "SysParam.h"
@@ -40,13 +40,14 @@ int main(int argc, char *argv[]){
 		int direction = BACKWARD;
 		s->setMode(FULLSTEP);
 		int file = openArduino();
-		sendArduino("m1",file);
-		for(int i =0; i<100; i++){
-			sendArduino("mu",file);
+		//sendArduino("m1",file);
+		for(int i =0; i<150; i++){
+			//sendArduino("mu",file);
 			usleep(100000);
 		}
 		closeArduino(file);
-		
+		//int file = open("/dev/ttyO1",O_RDWR);
+		//write(file,"m1",3);
 		HeatCntrl* h = new HeatCntrl(HEATPAD1_PIN);
 		printf("Heat Cntrl Setup\n");
 		//h->setDesiredTemp(100,100000);
@@ -82,8 +83,23 @@ int main(int argc, char *argv[]){
 
 
     		}
+		else if(decision[0]=='6'){
+			 file = openArduino();
+       		        
+       	        	 for(int i =0; i<169; i++){
+       	                	 sendArduino("md",file);
+       	                	 usleep(100000);
+	                }
+
+			//sendArduino("m0",file);
+			//sendArduino("m0",file);
+	                closeArduino(file);
+
+
+
+		}
     		else if(decision[0]=='s'){
-			for(int index1 =0; index1<50000; index1++){
+			for(int index1 =0; index1<8000; index1++){
 				//s->step(&direction);
 			//	valve1.moveValve(BEAKER1_POS);
 				setPin(46,1);
@@ -94,7 +110,7 @@ int main(int argc, char *argv[]){
 			}
     		}
 		else if(decision[0]=='0'){
-			for(int index1 =0; index1<50000; index1++){
+			for(int index1 =0; index1<8000; index1++){
                                 //s->step(&direction);
                         //      valve1.moveValve(BEAKER1_POS);
                                 setPin(46,0);
@@ -145,6 +161,9 @@ int main(int argc, char *argv[]){
 		else if(decision[0]=='q'){
 			valve1.moveValve(BEAKER1_POS);
 
+		}
+		else if(decision[0]=='['){
+			valve1.moveValve(BEAKER3_POS);
 		}
 		else if(decision[0]=='4'){
 
